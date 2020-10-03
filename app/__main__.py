@@ -28,7 +28,6 @@ class GitHubEventPullRequest(Event):
     sender: Optional[dict] = None
 
 
-
 logging.basicConfig(level=logging.INFO)
 settings = Settings()
 logging.info(f"Using config: {settings.json()}")
@@ -40,4 +39,5 @@ if settings.github_event_path.is_file():
     contents = settings.github_event_path.read_text()
     github_event = GitHubEventPullRequest.parse_raw(contents)
     debug(github_event)
+    logging.info(github_event.json(indent=2))
 logging.info("Finished")
