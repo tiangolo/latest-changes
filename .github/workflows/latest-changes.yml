@@ -12,6 +12,6 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-    - uses: tiangolo/latest-changes@init
+    - uses: tiangolo/latest-changes@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
