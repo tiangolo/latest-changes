@@ -55,11 +55,10 @@ if settings.github_event_path.is_file():
     )
     pre_content = content[:header_break_point]
     post_content = content[header_break_point:]
-    message = f"* {github_event.pull_request.title}. PR [#{github_event.pull_request.number}]({github_event.pull_request.url}) by [@{github_event.pull_request.user.login}]({github_event.pull_request.user.url}).\n"
+    message = f"* {github_event.pull_request.title}. PR [#{github_event.pull_request.number}]({github_event.pull_request.html_url}) by [@{github_event.pull_request.user.login}]({github_event.pull_request.user.html_url}).\n"
     new_content = pre_content + message + post_content
     settings.input_latest_changes_file.write_text(new_content)
     subprocess.run(["git", "add", str(settings.input_latest_changes_file)], check=True)
     subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
     subprocess.run(["git", "push"], check=True)
 logging.info("Finished")
-
