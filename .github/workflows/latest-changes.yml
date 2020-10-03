@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -22,3 +20,5 @@ jobs:
     - uses: tiangolo/latest-changes@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
