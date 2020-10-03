@@ -26,7 +26,6 @@ on:
 * ✏️ Fix incorrect URL. PR [#18](https://github.com/tiangolo/latest-changes/pull/18) by [@tiangolo](https://github.com/tiangolo).
 * 🔒 Try to secure tmate. PR [#17](https://github.com/tiangolo/latest-changes/pull/17) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update release notes URLs. PR [#16](https://github.com/tiangolo/latest-changes/pull/16) by [@tiangolo](https://github.com/tiangolo).
-* ♻️ Update URLs to use in latest changes. PR [#15](https://github.com/tiangolo/latest-changes/pulls/15) by [@tiangolo](https://github.com/tiangolo).
 
 ## License
 
