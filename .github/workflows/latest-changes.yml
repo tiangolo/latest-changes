@@ -12,6 +12,10 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
     - uses: tiangolo/latest-changes@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
