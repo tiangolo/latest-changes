@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     input_token: SecretStr
     github_event_path: Path
     github_event_name: Optional[str] = None
+    input_latest_changes_file: Path = Path("README.md")
 
 
 class GitHubEventPullRequest(BaseModel):
@@ -41,4 +42,19 @@ if settings.github_event_path.is_file():
     github_event = GitHubEventPullRequest.parse_raw(contents)
     debug(github_event)
     logging.info(github_event.json(indent=2))
+    changes_file_path = (
+        Path(github_event.repository.name) / settings.input_latest_changes_file
+    )
+    logging.info(
+        f"Changes file: {changes_file_path} exists: {changes_file_path.exists()}"
+    )
+    if changes_file_path.is_dir():
+        logging.info(f"changes dir list: {list(changes_file_path.iterdir())}")
+    logging.info(f"Current dir: {Path.cwd()}")
+    logging.info(f"Current dir list: {list(Path.cwd().iterdir())}")
+    github_event.pull_request.title
+    github_event.pull_request.number
+    github_event.pull_request.url
+    github_event.pull_request.user.login
+    github_event.pull_request.user
 logging.info("Finished")
