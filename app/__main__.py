@@ -62,3 +62,4 @@ if settings.github_event_path.is_file():
     subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
     subprocess.run(["git", "push"], check=True)
 logging.info("Finished")
+
