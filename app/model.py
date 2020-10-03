@@ -220,7 +220,7 @@ class License(BaseModel):
     spdx_id: str = Field(..., example='MIT')
     url: AnyUrl = Field(..., example='https://api.github.com/licenses/mit')
     node_id: str = Field(..., example='MDc6TGljZW5zZW1pdA==')
-    html_url: AnyUrl = Field(..., example='http://choosealicense.com/licenses/mit/')
+    html_url: Optional[AnyUrl] = Field(None, example='http://choosealicense.com/licenses/mit/')
     description: str = Field(
         ...,
         example='A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty.',
@@ -378,7 +378,7 @@ class Repository(BaseModel):
         ..., description='The name of the repository.', example='Team Environment'
     )
     full_name: str = Field(..., example='octocat/Hello-World')
-    license: License
+    license: Optional[LicenseSimple] = None
     forks: int
     permissions: Optional[Permissions2] = None
     owner: Owner1
@@ -504,12 +504,12 @@ class Repository(BaseModel):
         ..., example='http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}'
     )
     clone_url: str = Field(..., example='https://github.com/octocat/Hello-World.git')
-    mirror_url: AnyUrl = Field(..., example='git:git.example.com/octocat/Hello-World')
+    mirror_url: Optional[AnyUrl] = Field(None, example='git:git.example.com/octocat/Hello-World')
     hooks_url: AnyUrl = Field(
         ..., example='http://api.github.com/repos/octocat/Hello-World/hooks'
     )
     svn_url: AnyUrl = Field(..., example='https://svn.github.com/octocat/Hello-World')
-    homepage: AnyUrl = Field(..., example='https://github.com')
+    homepage: Optional[AnyUrl] = Field(None, example='https://github.com')
     language: str
     forks_count: int = Field(..., example=9)
     stargazers_count: int = Field(..., example=80)
@@ -1003,7 +1003,7 @@ class PullRequest(BaseModel):
     user: User17
     body: str = Field(..., example='Please pull these awesome changes')
     labels: List[Label]
-    milestone: Milestone4
+    milestone: Optional[Milestone4] = None
     active_lock_reason: Optional[str] = Field(None, example='too heated')
     created_at: datetime = Field(..., example='2011-01-26T19:01:12Z')
     updated_at: datetime = Field(..., example='2011-01-26T19:01:12Z')
@@ -1012,12 +1012,12 @@ class PullRequest(BaseModel):
     merge_commit_sha: str = Field(
         ..., example='e5bd3914e2e596debea16f433f57875b5b90bcd6'
     )
-    assignee: Assignee4
+    assignee: Optional[Assignee4] = None
     assignees: Optional[List[SimpleUser]] = None
     requested_reviewers: Optional[List[SimpleUser]] = None
     requested_teams: Optional[List[TeamSimple]] = None
-    head: Head2
-    base: Base2
+    head: Optional[Head2] = None
+    base: Optional[Base2] = None
     _links: _Links11
     author_association: str = Field(..., example='OWNER')
     draft: Optional[bool] = Field(
@@ -1026,7 +1026,7 @@ class PullRequest(BaseModel):
         example=False,
     )
     merged: bool
-    mergeable: bool = Field(..., example=True)
+    mergeable: Optional[bool] = Field(None, example=True)
     rebaseable: Optional[bool] = Field(None, example=True)
     mergeable_state: str = Field(..., example='clean')
     merged_by: MergedBy
@@ -5268,12 +5268,12 @@ class Repo3(BaseModel):
     has_projects: bool
     has_wiki: bool
     has_pages: bool
-    homepage: AnyUrl
+    homepage: Optional[AnyUrl] = None
     language: str
     master_branch: Optional[str] = None
     archived: bool
     disabled: bool
-    mirror_url: AnyUrl
+    mirror_url: Optional[AnyUrl] = None
     open_issues: int
     open_issues_count: int
     permissions: Optional[Permissions15] = None
@@ -5318,7 +5318,7 @@ class User18(BaseModel):
 class Head2(BaseModel):
     label: str
     ref: str
-    repo: Repo3
+    repo: Optional[Repo3] = None
     sha: str
     user: User18
 
@@ -5411,12 +5411,12 @@ class Repo4(BaseModel):
     has_projects: bool
     has_wiki: bool
     has_pages: bool
-    homepage: AnyUrl
+    homepage: Optional[AnyUrl] = None
     language: str
     master_branch: Optional[str] = None
     archived: bool
     disabled: bool
-    mirror_url: AnyUrl
+    mirror_url: Optional[AnyUrl] = None
     open_issues: int
     open_issues_count: int
     permissions: Optional[Permissions16] = None
@@ -5461,7 +5461,7 @@ class User19(BaseModel):
 class Base2(BaseModel):
     label: str
     ref: str
-    repo: Repo4
+    repo: Optional[Repo4] = None
     sha: str
     user: User19
 
