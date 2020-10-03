@@ -2383,7 +2383,7 @@ class User11(SimpleUser):
 
 class Content(Enum):
     _1 = '+1'
-    _1 = '-1'
+    __1 = '-1'
     laugh = 'laugh'
     confused = 'confused'
     heart = 'heart'
