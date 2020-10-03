@@ -6,8 +6,9 @@ from devtools import debug
 from github import Github
 from github.NamedUser import NamedUser
 from pydantic import BaseSettings, SecretStr
+from pydantic.main import BaseModel
 
-from app.model import Event, Organization, PullRequest, Repository
+from app.model import Organization, PullRequest, Repository
 
 
 class Settings(BaseSettings):
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
     github_event_name: Optional[str] = None
 
 
-class GitHubEventPullRequest(Event):
+class GitHubEventPullRequest(BaseModel):
     action: str
     number: int
     changes: Optional[dict] = None
