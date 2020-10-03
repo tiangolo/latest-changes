@@ -20,6 +20,7 @@ on:
 
 ### Latest Changes
 
+* 👷 Trigger CI. PR [#14](https://api.github.com/repos/tiangolo/latest-changes/pulls/14) by [@tiangolo](https://api.github.com/users/tiangolo).
 
 
 ## License
