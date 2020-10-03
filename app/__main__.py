@@ -46,6 +46,9 @@ if settings.github_event_path.is_file():
     logging.info(github_event.json(indent=2))
     logging.info(f"Current dir: {Path.cwd()}")
     logging.info(f"Current dir list: {list(Path.cwd().iterdir())}")
+    subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
+    subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
+    subprocess.run(["git", "pull"], check=True)
     content = settings.input_latest_changes_file.read_text()
     header_break_point = content.index(settings.input_latest_changes_header) + len(
         settings.input_latest_changes_header
@@ -55,8 +58,6 @@ if settings.github_event_path.is_file():
     message = f"* {github_event.pull_request.title}. PR [#{github_event.pull_request.number}]({github_event.pull_request.url}) by [@{github_event.pull_request.user.login}]({github_event.pull_request.user.url}).\n"
     new_content = pre_content + message + post_content
     settings.input_latest_changes_file.write_text(new_content)
-    subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
-    subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
     subprocess.run(["git", "add", str(settings.input_latest_changes_file)], check=True)
     subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
     subprocess.run(["git", "push"], check=True)
