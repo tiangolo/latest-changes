@@ -1,0 +1,17 @@
+name: Latest Changes
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+        - closed
+
+jobs:
+  latest-changes:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: tiangolo/latest-changes@init
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}

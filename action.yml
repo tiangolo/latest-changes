@@ -1,0 +1,13 @@
+name: Tiangolo's Latest Changes
+author: Sebastián Ramírez <tiangolo@gmail.com>
+description: Update the release notes with the "latest changes" right after a PR is merged
+inputs:
+  token:
+    description: Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}
+    required: true  
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: list
+  color: purple
