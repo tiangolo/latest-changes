@@ -20,6 +20,7 @@ on:
 
 ### Latest Changes
 
+* ♻️ Update URLs to use in latest changes. PR [#15](https://api.github.com/repos/tiangolo/latest-changes/pulls/15) by [@tiangolo](https://api.github.com/users/tiangolo).
 * 👷 Trigger CI. PR [#14](https://api.github.com/repos/tiangolo/latest-changes/pulls/14) by [@tiangolo](https://api.github.com/users/tiangolo).
 
 
