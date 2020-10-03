@@ -21,6 +21,6 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Secure tmate session
-      run: curl https://github.com/tiangolo.keys > ~/.ssh/authorized_keys && echo set tmate-authorized-keys "~/.ssh/authorized_keys" > ~/.tmate.conf
+      run: curl https://github.com/tiangolo.keys > ~/.tmate_authorized_keys && echo set tmate-authorized-keys "~/.tmate_authorized_keys" > ~/.tmate.conf
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
