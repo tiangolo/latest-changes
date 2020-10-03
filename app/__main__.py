@@ -1,4 +1,5 @@
 import logging
+import subprocess
 from pathlib import Path
 from typing import Optional
 
@@ -17,6 +18,7 @@ class Settings(BaseSettings):
     github_event_path: Path
     github_event_name: Optional[str] = None
     input_latest_changes_file: Path = Path("README.md")
+    input_latest_changes_header: str = "### Latest Changes\n\n"
 
 
 class GitHubEventPullRequest(BaseModel):
@@ -33,28 +35,26 @@ class GitHubEventPullRequest(BaseModel):
 logging.basicConfig(level=logging.INFO)
 settings = Settings()
 logging.info(f"Using config: {settings.json()}")
-g = Github(settings.input_token.get_secret_value())
-repo = g.get_repo(settings.github_repository)
-owner: NamedUser = repo.owner
-github_event: Optional[GitHubEventPullRequest] = None
+# g = Github(settings.input_token.get_secret_value())
+# repo = g.get_repo(settings.github_repository)
+# owner: NamedUser = repo.owner
+# github_event: Optional[GitHubEventPullRequest] = None
 if settings.github_event_path.is_file():
     contents = settings.github_event_path.read_text()
     github_event = GitHubEventPullRequest.parse_raw(contents)
     debug(github_event)
     logging.info(github_event.json(indent=2))
-    changes_file_path = (
-        Path(github_event.repository.name) / settings.input_latest_changes_file
-    )
-    logging.info(
-        f"Changes file: {changes_file_path} exists: {changes_file_path.exists()}"
-    )
-    if changes_file_path.is_dir():
-        logging.info(f"changes dir list: {list(changes_file_path.iterdir())}")
     logging.info(f"Current dir: {Path.cwd()}")
     logging.info(f"Current dir list: {list(Path.cwd().iterdir())}")
-    github_event.pull_request.title
-    github_event.pull_request.number
-    github_event.pull_request.url
-    github_event.pull_request.user.login
-    github_event.pull_request.user
+    content = settings.input_latest_changes_file.read_text()
+    header_break_point = content.index(settings.input_latest_changes_header) + len(
+        settings.input_latest_changes_header
+    )
+    pre_content = content[:header_break_point]
+    post_content = content[header_break_point:]
+    message = f"* {github_event.pull_request.title}. PR [#{github_event.pull_request.number}]({github_event.pull_request.url}) by [@{github_event.pull_request.user.login}]({github_event.pull_request.user.url}).\n"
+    new_content = pre_content + message + post_content
+    settings.input_latest_changes_file.write_text(new_content)
+    subprocess.run(["git", "add", str(settings.input_latest_changes_file)], check=True)
+    subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
 logging.info("Finished")
