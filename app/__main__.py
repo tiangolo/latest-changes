@@ -1,4 +1,5 @@
 import logging
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -64,16 +65,14 @@ if settings.github_event_path.is_file():
     )
     subprocess.run(["git", "pull"], check=True)
     content = settings.input_latest_changes_file.read_text()
-    if settings.input_latest_changes_header not in content:
+    match = re.search(settings.input_latest_changes_header, content)
+    if not match:
         logging.error(
-            f"The latest changes file at: {settings.input_latest_changes_file} doesn't seem to contain the header: {settings.input_latest_changes_header}"
+            f"The latest changes file at: {settings.input_latest_changes_file} doesn't seem to contain the header RegEx: {settings.input_latest_changes_header}"
         )
         sys.exit(1)
-    header_break_point = content.index(settings.input_latest_changes_header) + len(
-        settings.input_latest_changes_header
-    )
-    pre_content = content[:header_break_point]
-    post_content = content[header_break_point:]
+    pre_content = content[: match.end()]
+    post_content = content[match.end() :]
     message = f"* {github_event.pull_request.title}. PR [#{github_event.pull_request.number}]({github_event.pull_request.html_url}) by [@{github_event.pull_request.user.login}]({github_event.pull_request.user.html_url}).\n"
     new_content = pre_content + message + post_content
     settings.input_latest_changes_file.write_text(new_content)
