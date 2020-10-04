@@ -46,8 +46,6 @@ if settings.github_event_path.is_file():
     github_event = GitHubEventPullRequest.parse_raw(contents)
     debug(github_event)
     logging.info(github_event.json(indent=2))
-    logging.info(f"Current dir: {Path.cwd()}")
-    logging.info(f"Current dir list: {list(Path.cwd().iterdir())}")
     if not github_event.pull_request.merged:
         logging.error(
             "The PR was not merged but this action was run, add a step to your GitHub Action with:"
@@ -59,10 +57,12 @@ if settings.github_event_path.is_file():
             f"The latest changes files doesn't seem to exist: {settings.input_latest_changes_file}"
         )
         sys.exit(1)
+    logging.info("Setting up GitHub Actions git user")
     subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
     subprocess.run(
         ["git", "config", "user.email", "github-actions@github.com"], check=True
     )
+    logging.info(f"Pulling the latest changes, including the latest merged PR (this one)")
     subprocess.run(["git", "pull"], check=True)
     content = settings.input_latest_changes_file.read_text()
     match = re.search(settings.input_latest_changes_header, content)
@@ -76,7 +76,9 @@ if settings.github_event_path.is_file():
     message = f"* {github_event.pull_request.title}. PR [#{github_event.pull_request.number}]({github_event.pull_request.html_url}) by [@{github_event.pull_request.user.login}]({github_event.pull_request.user.html_url}).\n"
     new_content = pre_content + message + post_content
     settings.input_latest_changes_file.write_text(new_content)
+    logging.info(f"Committing changes to: {settings.input_latest_changes_file}")
     subprocess.run(["git", "add", str(settings.input_latest_changes_file)], check=True)
     subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
+    logging.info(f"Pushing changes: {settings.input_latest_changes_file}")
     subprocess.run(["git", "push"], check=True)
 logging.info("Finished")
