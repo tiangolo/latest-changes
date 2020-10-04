@@ -48,10 +48,15 @@ if settings.github_event_path.is_file():
     logging.info(f"Current dir: {Path.cwd()}")
     logging.info(f"Current dir list: {list(Path.cwd().iterdir())}")
     if not github_event.pull_request.merged:
-        logging.info(
+        logging.error(
             "The PR was not merged but this action was run, add a step to your GitHub Action with:"
         )
-        logging.info("if: github.event.pull_request.merged == true")
+        logging.error("if: github.event.pull_request.merged == true")
+        sys.exit(1)
+    if not settings.input_latest_changes_file.is_file():
+        logging.error(
+            f"The latest changes files doesn't seem to exist: {settings.input_latest_changes_file}"
+        )
         sys.exit(1)
     subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
     subprocess.run(
@@ -59,6 +64,11 @@ if settings.github_event_path.is_file():
     )
     subprocess.run(["git", "pull"], check=True)
     content = settings.input_latest_changes_file.read_text()
+    if settings.input_latest_changes_header not in content:
+        logging.error(
+            f"The latest changes file at: {settings.input_latest_changes_file} doesn't seem to contain the header: {settings.input_latest_changes_header}"
+        )
+        sys.exit(1)
     header_break_point = content.index(settings.input_latest_changes_header) + len(
         settings.input_latest_changes_header
     )

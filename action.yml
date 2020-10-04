@@ -4,7 +4,15 @@ description: Update the release notes with the "latest changes" right after a PR
 inputs:
   token:
     description: Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}
-    required: true  
+    required: true
+  latest_changes_file:
+    description: The file to add the latest changes
+    default: README.md
+    required: false
+  latest_changes_header:
+    description: Header to search for in the latest changes file, this action will add the changes right after that string (including newlines)
+    default: '### Latest Changes\n\n'
+    required: false
 runs:
   using: docker
   image: Dockerfile
