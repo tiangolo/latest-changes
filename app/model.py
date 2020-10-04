@@ -1008,7 +1008,7 @@ class PullRequest(BaseModel):
     created_at: datetime = Field(..., example='2011-01-26T19:01:12Z')
     updated_at: datetime = Field(..., example='2011-01-26T19:01:12Z')
     closed_at: datetime = Field(..., example='2011-01-26T19:01:12Z')
-    merged_at: datetime = Field(..., example='2011-01-26T19:01:12Z')
+    merged_at: Optional[datetime] = Field(None, example='2011-01-26T19:01:12Z')
     merge_commit_sha: str = Field(
         ..., example='e5bd3914e2e596debea16f433f57875b5b90bcd6'
     )
@@ -1029,7 +1029,7 @@ class PullRequest(BaseModel):
     mergeable: Optional[bool] = Field(None, example=True)
     rebaseable: Optional[bool] = Field(None, example=True)
     mergeable_state: str = Field(..., example='clean')
-    merged_by: MergedBy
+    merged_by: Optional[MergedBy] = None
     comments: int = Field(..., example=10)
     review_comments: int = Field(..., example=0)
     maintainer_can_modify: bool = Field(
