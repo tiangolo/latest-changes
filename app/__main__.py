@@ -1,5 +1,6 @@
 import logging
 import subprocess
+import sys
 from pathlib import Path
 from typing import Optional
 
@@ -46,8 +47,16 @@ if settings.github_event_path.is_file():
     logging.info(github_event.json(indent=2))
     logging.info(f"Current dir: {Path.cwd()}")
     logging.info(f"Current dir list: {list(Path.cwd().iterdir())}")
+    if not github_event.pull_request.merged:
+        logging.info(
+            "The PR was not merged but this action was run, add a step to your GitHub Action with:"
+        )
+        logging.info("if: github.event.pull_request.merged == true")
+        sys.exit(1)
     subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
-    subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
+    subprocess.run(
+        ["git", "config", "user.email", "github-actions@github.com"], check=True
+    )
     subprocess.run(["git", "pull"], check=True)
     content = settings.input_latest_changes_file.read_text()
     header_break_point = content.index(settings.input_latest_changes_header) + len(
