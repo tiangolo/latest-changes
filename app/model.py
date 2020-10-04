@@ -510,7 +510,7 @@ class Repository(BaseModel):
     )
     svn_url: AnyUrl = Field(..., example='https://svn.github.com/octocat/Hello-World')
     homepage: Optional[AnyUrl] = Field(None, example='https://github.com')
-    language: str
+    language: Optional[str] = None
     forks_count: int = Field(..., example=9)
     stargazers_count: int = Field(..., example=80)
     watchers_count: int = Field(..., example=80)
@@ -5269,7 +5269,7 @@ class Repo3(BaseModel):
     has_wiki: bool
     has_pages: bool
     homepage: Optional[AnyUrl] = None
-    language: str
+    language: Optional[str] = None
     master_branch: Optional[str] = None
     archived: bool
     disabled: bool
@@ -5412,7 +5412,7 @@ class Repo4(BaseModel):
     has_wiki: bool
     has_pages: bool
     homepage: Optional[AnyUrl] = None
-    language: str
+    language: Optional[str] = None
     master_branch: Optional[str] = None
     archived: bool
     disabled: bool
