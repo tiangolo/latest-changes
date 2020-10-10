@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     input_latest_changes_file: Path = Path("README.md")
     input_latest_changes_header: str = "### Latest Changes\n\n"
     input_template_file: Path = Path(__file__).parent / "latest-changes.jinja2"
+    input_debug: bool = False
 
 
 class GitHubEventPullRequest(BaseModel):
@@ -39,7 +40,9 @@ class GitHubEventPullRequest(BaseModel):
 
 logging.basicConfig(level=logging.INFO)
 settings = Settings()
-logging.info(f"Using config: {settings.json()}")
+if settings.input_debug:
+    logging.info(f"Using config: {settings.json()}")
+# TODO: This might be useful later for parsing a comment in the PR
 # g = Github(settings.input_token.get_secret_value())
 # repo = g.get_repo(settings.github_repository)
 # owner: NamedUser = repo.owner
@@ -47,8 +50,10 @@ logging.info(f"Using config: {settings.json()}")
 if settings.github_event_path.is_file():
     contents = settings.github_event_path.read_text()
     github_event = GitHubEventPullRequest.parse_raw(contents)
-    debug(github_event)
-    logging.info(github_event.json(indent=2))
+    if settings.input_debug:
+        logging.info("GitHub Event object:")
+        debug(github_event)
+        logging.info(f"GitHub Event JSON: {github_event.json(indent=2)}")
     if not github_event.pull_request.merged:
         logging.error(
             "The PR was not merged but this action was run, add a step to your GitHub Action with:"
