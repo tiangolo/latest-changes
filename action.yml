@@ -19,6 +19,7 @@ inputs:
   debug_logs:
     description: Use debug=True to enable more logging, useful to see the object shape for custom Jinja2 templates
     required: false
+    default: 'false'
 runs:
   using: docker
   image: Dockerfile
