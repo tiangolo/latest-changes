@@ -4,7 +4,7 @@ description: Update the release notes with the "latest changes" right after a PR
 inputs:
   token:
     description: Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}
-    required: true
+    required: false
   latest_changes_file:
     description: The file to add the latest changes
     default: README.md

@@ -18,9 +18,9 @@ from app.model import Organization, PullRequest, Repository
 
 class Settings(BaseSettings):
     github_repository: str
-    input_token: SecretStr
     github_event_path: Path
     github_event_name: Optional[str] = None
+    input_token: Optional[SecretStr] = None
     input_latest_changes_file: Path = Path("README.md")
     input_latest_changes_header: str = "### Latest Changes\n\n"
     input_template_file: Path = Path(__file__).parent / "latest-changes.jinja2"
