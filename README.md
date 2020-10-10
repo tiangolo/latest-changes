@@ -42,7 +42,6 @@ After merging a PR to the main branch, it will:
 ```Markdown
 ### Latest Changes
 
-* 🐛 Fix internal latest changes, use a custom header so it doesn't break the examples. PR [#29](https://github.com/tiangolo/latest-changes/pull/29) by [@tiangolo](https://github.com/tiangolo).
 
 ```
 
@@ -50,6 +49,7 @@ After merging a PR to the main branch, it will:
 
 * Right after that, it will add a new list item with the changes:
     * Using the title from the PR.
+        * **Tip**: make sure the PR has the title you want before merging it.
     * Including the PR number, with a link to the PR itself.
     * Including the PR author, with a link as well.
 
@@ -178,6 +178,7 @@ then this action won't be able to add the first message. So, make sure the lates
 
 ### Latest Changes - Latest Changes 🤷
 
+* 🐛 Fix internal latest changes, use a custom header so it doesn't break the examples. PR [#29](https://github.com/tiangolo/latest-changes/pull/29) by [@tiangolo](https://github.com/tiangolo).
 * 🐛 Fix default action config for template file. PR [#28](https://github.com/tiangolo/latest-changes/pull/28) by [@tiangolo](https://github.com/tiangolo).
 * ✨ Add support for Jinja2 templates for changes notes. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove unnecessary note from release notes. PR [#22](https://github.com/tiangolo/latest-changes/pull/22) by [@tiangolo](https://github.com/tiangolo).
