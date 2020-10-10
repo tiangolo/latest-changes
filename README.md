@@ -42,6 +42,7 @@ After merging a PR to the main branch, it will:
 ```Markdown
 ### Latest Changes
 
+* 🐛 Fix default action config for template file. PR [#28](https://github.com/tiangolo/latest-changes/pull/28) by [@tiangolo](https://github.com/tiangolo).
 
 ```
 
