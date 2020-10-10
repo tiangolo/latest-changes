@@ -42,6 +42,7 @@ After merging a PR to the main branch, it will:
 ```Markdown
 ### Latest Changes
 
+* 🐛 Fix internal latest changes, use a custom header so it doesn't break the examples. PR [#29](https://github.com/tiangolo/latest-changes/pull/29) by [@tiangolo](https://github.com/tiangolo).
 
 ```
 
