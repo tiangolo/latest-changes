@@ -42,7 +42,6 @@ After merging a PR to the main branch, it will:
 ```Markdown
 ### Latest Changes
 
-* 🐛 Fix default action config for template file. PR [#28](https://github.com/tiangolo/latest-changes/pull/28) by [@tiangolo](https://github.com/tiangolo).
 
 ```
 
@@ -176,8 +175,9 @@ then this action won't be able to add the first message. So, make sure the lates
 
 ## Release Notes
 
-### Latest Changes
+### Latest Changes - Latest Changes 🤷
 
+* 🐛 Fix default action config for template file. PR [#28](https://github.com/tiangolo/latest-changes/pull/28) by [@tiangolo](https://github.com/tiangolo).
 * ✨ Add support for Jinja2 templates for changes notes. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove unnecessary note from release notes. PR [#22](https://github.com/tiangolo/latest-changes/pull/22) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove unnecessary note from latest changes. PR [#21](https://github.com/tiangolo/latest-changes/pull/21) by [@tiangolo](https://github.com/tiangolo).
