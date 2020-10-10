@@ -16,6 +16,7 @@ inputs:
   template_file:
     description: To override the default message with a custom Jinja2 template, use a path relative to the repo.
     required: false
+    default: /app/app/latest-changes.jinja2
   debug_logs:
     description: Use debug=True to enable more logging, useful to see the object shape for custom Jinja2 templates
     required: false
