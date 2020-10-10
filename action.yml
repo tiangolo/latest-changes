@@ -13,6 +13,9 @@ inputs:
     description: Header to search for in the latest changes file, this action will add the changes right after that string (including newlines)
     default: '### Latest Changes\n\n'
     required: false
+  template_file:
+    description: To override the default message with a custom Jinja2 template, use a path relative to the repo.
+    required: false
 runs:
   using: docker
   image: Dockerfile
