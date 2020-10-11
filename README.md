@@ -27,6 +27,7 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: docker://tiangolo/latest-changes:0.0.1
       # You can also use the action directly, but that will take about an extra minute:
       # - tiangolo/latest-changes:0.0.1
