@@ -71,11 +71,14 @@ if not match:
         f"The latest changes file at: {settings.input_latest_changes_file} doesn't seem to contain the header RegEx: {settings.input_latest_changes_header}"
     )
     sys.exit(1)
-pre_content = content[: match.end()]
-post_content = content[match.end() :]
 template_content = settings.input_template_file.read_text("utf-8")
 template = Template(template_content)
 message = template.render(pr=pr)
+if message in content:
+    logging.error(f"It seems these PR's latest changes were already added: {number}")
+    sys.exit(1)
+pre_content = content[: match.end()]
+post_content = content[match.end() :]
 new_content = pre_content + message + post_content
 settings.input_latest_changes_file.write_text(new_content)
 logging.info(f"Committing changes to: {settings.input_latest_changes_file}")
