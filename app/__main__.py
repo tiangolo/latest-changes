@@ -60,11 +60,10 @@ if settings.input_debug_logs:
     logging.info("PR object:")
     debug(pr)
 if not pr.merged:
-    logging.error(
-        "The PR was not merged but this action was run, add a step to your GitHub Action with:"
+    logging.info(
+        "The PR was not merged, nothing else to do."
     )
-    logging.error("if: github.event.pull_request.merged == true")
-    sys.exit(1)
+    sys.exit(0)
 if not settings.input_latest_changes_file.is_file():
     logging.error(
         f"The latest changes files doesn't seem to exist: {settings.input_latest_changes_file}"

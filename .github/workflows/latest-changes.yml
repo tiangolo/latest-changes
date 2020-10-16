@@ -9,12 +9,11 @@ on:
   workflow_dispatch:
     inputs:
       number:
-        description: PR number to use when running this GitHub Action.
+        description: PR number
         required: true
 
 jobs:
   latest-changes:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
