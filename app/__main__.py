@@ -5,7 +5,6 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from devtools import debug
 from github import Github
 from jinja2 import Template
 from pydantic import BaseModel, BaseSettings, SecretStr
@@ -52,9 +51,6 @@ else:
     )
     sys.exit(1)
 pr = repo.get_pull(number)
-if settings.input_debug_logs:
-    logging.info("PR object:")
-    debug(pr)
 if not pr.merged:
     logging.info("The PR was not merged, nothing else to do.")
     sys.exit(0)

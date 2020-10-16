@@ -71,11 +71,25 @@ It will look something like:
 >
 > * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 
-You can see an example of how it works in this same file, at the bottom, in [Latest Changes](#latest-changes-1).
+You can see an example of how it works in this same file, at the bottom, in [Latest Changes - Latest Changes 🤷](##latest-changes---latest-changes-).
 
 * Then it will commit the changes, and push them to your repo. 🚀
 
 As the changes are simply written to a file in your repo, you can later tweak them however you want. You can add links, extend the information, remove irrelevant changes, etc. ✨
+
+## Existing PRs - Running Manually
+
+For this GitHub Action to work automatically, the workflow file has to be in the repository _before_ the PR is created, so that the PR also includes it. That's just how GitHub Actions work.
+
+Nevertheless, if you have some PRs that were open before adding this GitHub Action to your project and you still want to use it, you can create workflows manually. It will take the PR number, and then it will do the rest automatically.
+
+You can "dispatch" a workflow/run from the "Actions" tab:
+
+* Select this GitHub Action with the name you used, e.g. "Latest Changes".
+* Click on "Run Workflow".
+* It will ask you for the PR number and do all the rest.
+
+So, in those cases, it won't do everything automatically, you will have to manually start it and set the PR number. But it can still save you from most of the work, and from a bunch of human errors. 🤓 🎉
 
 ## Configuration
 
@@ -84,7 +98,7 @@ You can configure:
 * `latest_changes_file`: The file to modify with the latest changes. For example: `./docs/latest-changes.rst`.
 * `latest_changes_header`: The header to look for before adding a new message. for example: `# CHANGELOG \n\n`.
 * `template_file`: A custom Jinja2 template file to use to generate the message, you could use this to generate a different message or to use a different format, for example, HTML instead of the default Markdown.
-* `debug_logs`: Set to `'true'` to show lots of logs with the current config and PR event objects. It can be useful while creating a custom template.
+* `debug_logs`: Set to `'true'` to show logs with the current settings.
 
 ## Configuration example
 
@@ -93,12 +107,14 @@ A full example, using all the configurations, could be as follows.
 You could have a custom Jinja2 template with the message to write at `./.github/workflows/release-notes.jinja2` containing:
 
 ```Jinja2
-This changed: {{github_event.pull_request.title}}. Done by [the GitHub user {{github_event.pull_request.user.login}}]({{github_event.pull_request.user.html_url}}). Check the [Pull Request {{github_event.pull_request.number}} with the changes and stuff]({{github_event.pull_request.html_url}}). now back to code. 🤓
+This changed: {{pr.title}}. Done by [the GitHub user {{pr.user.login}}]({{pr.user.html_url}}). Check the [Pull Request {{pr.number}} with the changes and stuff]({{pr.html_url}}). now back to code. 🤓
 
 
 ```
 
 **Note**: you can use any location in your repository for the Jinja2 template.
+
+**Tip**: The `pr` object is a [PyGitHub `PullRequest` object](https://pygithub.readthedocs.io/en/latest/github_objects/PullRequest.html), you can extract any other information you need from it.
 
 Notice that the Jinja2 template has 2 trailing newlines. Jinja2 we need one so that the next message shows below, instead of the same line, and Jinja2 eats one 🤷, so we put 2.
 

@@ -1,6 +1,5 @@
 PyGithub
 pydantic>=1.6.1,<1.7.0
 httpx>=0.15.5,<0.16.0
-devtools
 email-validator
 Jinja2
