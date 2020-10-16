@@ -19,11 +19,15 @@ on:
       # - master
     types:
       - closed
+  # For manually triggering it
+  workflow_dispatch:
+    inputs:
+      number:
+        description: PR number
+        required: true
 
 jobs:
   latest-changes:
-    # Make sure it only runs if the PR was merged
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -109,10 +113,14 @@ on:
       - master
     types:
       - closed
+  workflow_dispatch:
+    inputs:
+      number:
+        description: PR number
+        required: true
 
 jobs:
   latest-changes:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
