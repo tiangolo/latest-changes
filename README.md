@@ -18,7 +18,6 @@ on:
       # Or use the branch "master" if that's your main branch:
       # - master
     types:
-      # This action should only run after the PR has been merged
       - closed
 
 jobs:
@@ -29,8 +28,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: docker://tiangolo/latest-changes:0.0.1
-      # You can also use the action directly, but that will take about an extra minute:
-      # - tiangolo/latest-changes:0.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+**Note**: you can also use the GitHub action directly intead of with Docker, but that would take an extra minute:
+
+```YAML
+      # - uses: docker://tiangolo/latest-changes:0.0.1
+      # This is slower but also works
+      - uses: tiangolo/latest-changes:0.0.1
 ```
 
 In this minimal example, it uses all the default configurations.
@@ -111,6 +118,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: tiangolo/latest-changes:0.0.1
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
         latest_changes_header: '# Release Notes\n\n'
         template_file: ./.github/workflows/release-notes.jinja2
