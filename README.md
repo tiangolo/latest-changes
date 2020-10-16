@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://tiangolo/latest-changes:0.0.1
+      - uses: docker://tiangolo/latest-changes:0.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -39,9 +39,9 @@ jobs:
 **Note**: you can also use the GitHub action directly intead of with Docker, but that would take an extra minute:
 
 ```YAML
-      # - uses: docker://tiangolo/latest-changes:0.0.1
+      # - uses: docker://tiangolo/latest-changes:0.0.2
       # This is slower but also works
-      - uses: tiangolo/latest-changes:0.0.1
+      - uses: tiangolo/latest-changes:0.0.2
 ```
 
 In this minimal example, it uses all the default configurations.
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: tiangolo/latest-changes:0.0.1
+    - uses: tiangolo/latest-changes:0.0.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -155,13 +155,13 @@ In this custom config:
 * It uses the GitHub action directly:
 
 ```
-tiangolo/latest-changes:0.0.1
+tiangolo/latest-changes:0.0.2
 ```
 
 instead of with Docker:
 
 ```
-docker://tiangolo/latest-changes:0.0.1
+docker://tiangolo/latest-changes:0.0.2
 ```
 
 **Note**: that would make every run about 1 min slower, but you can do that if you prefer it 🤷.
@@ -210,6 +210,8 @@ then this action won't be able to add the first message. So, make sure the lates
 ## Release Notes
 
 ### Latest Changes - Latest Changes 🤷
+
+### 0.0.2
 
 * ✨ Check if the latest changes message was already added before adding it. PR [#35](https://github.com/tiangolo/latest-changes/pull/35) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add docs for running manually, with a workflow dispatch. PR [#34](https://github.com/tiangolo/latest-changes/pull/34) by [@tiangolo](https://github.com/tiangolo).
