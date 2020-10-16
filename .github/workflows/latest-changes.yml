@@ -6,6 +6,11 @@ on:
       - main
     types:
       - closed
+  workflow_dispatch:
+    inputs:
+      number:
+        description: PR number to use when running this GitHub Action.
+        required: true
 
 jobs:
   latest-changes:
