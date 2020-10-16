@@ -1,16 +1,14 @@
-import os
 import logging
 import re
 import subprocess
-import json
 import sys
 from pathlib import Path
 from typing import Optional
 
 from devtools import debug
 from github import Github
-from pydantic import BaseSettings, SecretStr, validator
 from jinja2 import Template
+from pydantic import BaseModel, BaseSettings, SecretStr
 
 
 class Settings(BaseSettings):
@@ -22,34 +20,37 @@ class Settings(BaseSettings):
     input_latest_changes_header: str = "### Latest Changes\n\n"
     input_template_file: Path = Path(__file__).parent / "latest-changes.jinja2"
     input_debug_logs: Optional[bool] = False
-    input_number: Optional[int] = None
 
-    @validator("input_number", pre=True)
-    def number_int_or_none(cls, v):
-        if v == "":
-            return None
-        return v
+
+class PartialGitHubEventInputs(BaseModel):
+    number: int
+
+
+class PartialGitHubEvent(BaseModel):
+    number: Optional[int] = None
+    inputs: Optional[PartialGitHubEventInputs] = None
 
 
 logging.basicConfig(level=logging.INFO)
-input_number = os.getenv("INPUT_NUMBER")
-logging.info(f"input_number: {input_number}, {type(input_number)}")
 settings = Settings()
 if settings.input_debug_logs:
     logging.info(f"Using config: {settings.json()}")
 g = Github(settings.input_token.get_secret_value())
 repo = g.get_repo(settings.github_repository)
-number: Optional[int] = settings.input_number
-if settings.input_number is None and settings.github_event_path.is_file():
-    contents = settings.github_event_path.read_text()
-    data: dict = json.loads(contents)
-    number = data.get("number")
-if number is None:
+if not settings.github_event_path.is_file():
+    logging.error(f"No event file was found at: {settings.github_event_path}")
+    sys.exit(1)
+contents = settings.github_event_path.read_text()
+event = PartialGitHubEvent.parse_raw(contents)
+if event.number is not None:
+    number = event.number
+elif event.inputs and event.inputs.number:
+    number = event.inputs.number
+else:
     logging.error(
-        "This GitHub action must be triggered by a merged PR or with a PR number"
+        f"No PR number was found (PR number or workflow input) in the event file at: {settings.github_event_path}"
     )
     sys.exit(1)
-assert number is not None, "The PR number should exist by now"
 pr = repo.get_pull(number)
 if settings.input_debug_logs:
     logging.info("PR object:")
