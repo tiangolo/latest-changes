@@ -1,3 +1,4 @@
+import os
 import logging
 import re
 import subprocess
@@ -40,6 +41,8 @@ class GitHubEventPullRequest(BaseModel):
 
 
 logging.basicConfig(level=logging.INFO)
+input_number = os.getenv("INPUT_NUMBER")
+logging.debug(f"input_number: {input_number}, {type(input_number)}")
 settings = Settings()
 if settings.input_debug_logs:
     logging.info(f"Using config: {settings.json()}")
