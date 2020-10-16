@@ -2,17 +2,15 @@ import os
 import logging
 import re
 import subprocess
+import json
 import sys
 from pathlib import Path
 from typing import Optional
 
 from devtools import debug
 from github import Github
-from pydantic import BaseSettings, SecretStr, validator, BaseModel
+from pydantic import BaseSettings, SecretStr, validator
 from jinja2 import Template
-
-
-from app.model import Organization, PullRequest, Repository
 
 
 class Settings(BaseSettings):
@@ -33,17 +31,6 @@ class Settings(BaseSettings):
         return v
 
 
-class GitHubEventPullRequest(BaseModel):
-    action: str
-    number: int
-    changes: Optional[dict] = None
-    pull_request: PullRequest
-    repository: Repository
-    organization: Optional[Organization] = None
-    installation: Optional[dict] = None
-    sender: Optional[dict] = None
-
-
 logging.basicConfig(level=logging.INFO)
 input_number = os.getenv("INPUT_NUMBER")
 logging.info(f"input_number: {input_number}, {type(input_number)}")
@@ -52,12 +39,11 @@ if settings.input_debug_logs:
     logging.info(f"Using config: {settings.json()}")
 g = Github(settings.input_token.get_secret_value())
 repo = g.get_repo(settings.github_repository)
-event: Optional[GitHubEventPullRequest] = None
 number: Optional[int] = settings.input_number
 if settings.input_number is None and settings.github_event_path.is_file():
     contents = settings.github_event_path.read_text()
-    event = GitHubEventPullRequest.parse_raw(contents)
-    number = event.pull_request.number
+    data: dict = json.loads(contents)
+    number = data.get("number")
 if number is None:
     logging.error(
         "This GitHub action must be triggered by a merged PR or with a PR number"
