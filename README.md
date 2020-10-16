@@ -211,6 +211,7 @@ then this action won't be able to add the first message. So, make sure the lates
 
 ### Latest Changes - Latest Changes 🤷
 
+* 🔖 Release version 0.0.2. PR [#36](https://github.com/tiangolo/latest-changes/pull/36) by [@tiangolo](https://github.com/tiangolo).
 ### 0.0.2
 
 * ✨ Check if the latest changes message was already added before adding it. PR [#35](https://github.com/tiangolo/latest-changes/pull/35) by [@tiangolo](https://github.com/tiangolo).
