@@ -77,6 +77,20 @@ You can see an example of how it works in this same file, at the bottom, in [Lat
 
 As the changes are simply written to a file in your repo, you can later tweak them however you want. You can add links, extend the information, remove irrelevant changes, etc. ✨
 
+## Existing PRs - Running Manually
+
+For this GitHub Action to work automatically, the workflow file has to be in the repository _before_ the PR is created, so that the PR also includes it. That's just how GitHub Actions work.
+
+Nevertheless, if you have some PRs that were open before adding this GitHub Action to your project and you still want to use it, you can create workflows manually. It will take the PR number, and then it will do the rest automatically.
+
+You can "dispatch" a workflow/run from the "Actions" tab:
+
+* Select this GitHub Action with the name you used, e.g. "Latest Changes".
+* Click on "Run Workflow".
+* It will ask you for the PR number and do all the rest.
+
+So, in those cases, it won't do everything automatically, you will have to manually start it and set the PR number. But it can still save you from most of the work, and from a bunch of human errors. 🤓 🎉
+
 ## Configuration
 
 You can configure:
