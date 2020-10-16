@@ -211,6 +211,7 @@ then this action won't be able to add the first message. So, make sure the lates
 
 ### Latest Changes - Latest Changes 🤷
 
+* 📝 Add docs for running manually, with a workflow dispatch. PR [#34](https://github.com/tiangolo/latest-changes/pull/34) by [@tiangolo](https://github.com/tiangolo).
 * ✨ Refactor and add support for triggering with workflow dispatch events. PR [#32](https://github.com/tiangolo/latest-changes/pull/32) by [@tiangolo](https://github.com/tiangolo).
 * 🐛 Fix basic example in README, include checkout step. PR [#31](https://github.com/tiangolo/latest-changes/pull/31) by [@tiangolo](https://github.com/tiangolo).
 
