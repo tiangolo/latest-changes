@@ -211,6 +211,7 @@ then this action won't be able to add the first message. So, make sure the lates
 
 ### Latest Changes - Latest Changes 🤷
 
+* 🚚 Update Python module name to latest_changes to avoid conflicts with any repo directory "app". PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
 * 🐛 Fix default Jinja2 path in Action yaml. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
 ### 0.0.2
 
