@@ -36,7 +36,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-**Note**: you can also use the GitHub action directly intead of with Docker, but that would take an extra minute:
+**Note**: you can also use the GitHub action directly instead of with Docker, but that would take an extra minute:
 
 ```YAML
       # - uses: docker://tiangolo/latest-changes:0.0.3
