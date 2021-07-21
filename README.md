@@ -207,6 +207,73 @@ then this action won't be able to add the first message. So, make sure the lates
 
 * Lastly, it will show a lot of debugging information.
 
+## Protected Branches
+
+If you have a protected branch (for example `main` or `master`), this action wouldn't be able to write and push the updated latest changes to it.
+
+But it's easy to fix if you are an admin in the repo and can push directly to the protected branch.
+
+You need to create a new GitHub access token. For example, a [personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). You will probably need to give it `repo` permissions.
+
+Then, in your repository, go to "Settings" -> "Secrets", and [create a new "repository secret"](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Use the access token as the value, and for the name, it could be something like `ACTIONS_TOKEN`. Just remember to use the same name in the configurations shown below.
+
+Then in your configuration, pass that token to the action `actions/checkout@v2`:
+
+```YAML
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ACTIONS_TOKEN }}
+```
+
+**Note**: you pass that token to the official `actions/checkout@v2`, not to this `latest-changes` action.
+
+The complete example would look like:
+
+```YAML
+name: Latest Changes
+
+on:
+  pull_request_target:
+    branches:
+      - main
+      # Or use the branch "master" if that's your main branch:
+      # - master
+    types:
+      - closed
+  # For manually triggering it
+  workflow_dispatch:
+    inputs:
+      number:
+        description: PR number
+        required: true
+
+jobs:
+  latest-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ACTIONS_TOKEN }}
+      - uses: docker://tiangolo/latest-changes:0.0.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### How does it work?
+
+By passing the custom access token to the action `actions/checkout@v2`, this action will configure `git` with those credentials.
+
+And then when `latest-changes` runs and executes some commands with `git`, including `git push`, they will be done with your access token.
+
+Your access token will be used to push the changes, but don't worry, the commits will not be associated with your personal user account.
+
+`latest-changes` still configures the `git` user with:
+
+* username: `github-actions`
+* email: `github-actions@github.com`
+
+So, the commits will still be shown as made by `github-actions`.
+
 ## Release Notes
 
 ### Latest Changes - Latest Changes 🤷
