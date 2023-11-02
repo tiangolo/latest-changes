@@ -1,2 +1,5 @@
 .mypy_cache
 .vscode
+*.pyc
+.DS_Store
+.coverage
