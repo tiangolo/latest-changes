@@ -40,8 +40,10 @@ def test_no_sections():
         user=TemplateDataUser(login="tiangolo", html_url="https://github.com/tiangolo"),
     )
     new_content = generate_content(content=content, settings=settings, pr=pr, labels=[])
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -56,6 +58,8 @@ def test_no_sections():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -84,8 +88,10 @@ def test_before_release():
         user=TemplateDataUser(login="tiangolo", html_url="https://github.com/tiangolo"),
     )
     new_content = generate_content(content=content, settings=settings, pr=pr, labels=[])
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -97,6 +103,8 @@ def test_before_release():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -129,8 +137,10 @@ def test_existing_labels_no_label():
         user=TemplateDataUser(login="tiangolo", html_url="https://github.com/tiangolo"),
     )
     new_content = generate_content(content=content, settings=settings, pr=pr, labels=[])
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -146,6 +156,8 @@ def test_existing_labels_no_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -180,8 +192,10 @@ def test_existing_labels_same_label():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -196,6 +210,8 @@ def test_existing_labels_same_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -230,8 +246,10 @@ def test_existing_label_other_label():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -249,6 +267,8 @@ def test_existing_label_other_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -283,8 +303,10 @@ def test_existing_label_secondary_label():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["bug"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -302,6 +324,8 @@ def test_existing_label_secondary_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -334,8 +358,10 @@ def test_no_existing_label_label():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -351,6 +377,8 @@ def test_no_existing_label_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -385,8 +413,10 @@ def test_no_existing_label_release_label_label():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -404,6 +434,8 @@ def test_no_existing_label_release_label_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -438,8 +470,10 @@ def test_custom_label_label():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -457,6 +491,8 @@ def test_custom_label_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -493,8 +529,10 @@ def test_sectionless_content_label():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -514,6 +552,8 @@ def test_sectionless_content_label():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -560,8 +600,10 @@ def test_content_above_latest_changes():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     Here's some content.
@@ -591,6 +633,8 @@ def test_content_above_latest_changes():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -625,8 +669,10 @@ def test_multiple_labels():
     new_content = generate_content(
         content=content, settings=settings, pr=pr, labels=["bug", "feature"]
     )
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     ## Release Notes
 
     ### Latest Changes
@@ -644,6 +690,8 @@ def test_multiple_labels():
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
     """
+        )
+        + "\n"
     )
 
 
@@ -779,17 +827,20 @@ def test_multiple_header_sections():
         input_token="secret",
         input_latest_changes_header="## Latest Changes",
         input_end_regex="^## ",
-        input_labels=cast(Any, [
-            {"label": "breaking", "header": "### Breaking Changes"},
-            {"label": "security", "header": "### Security Fixes"},
-            {"label": "feature", "header": "### Features"},
-            {"label": "bug", "header": "### Fixes"},
-            {"label": "refactor", "header": "### Refactors"},
-            {"label": "upgrade", "header": "### Upgrades"},
-            {"label": "docs", "header": "### Docs"},
-            {"label": "lang-all", "header": "### Translations"},
-            {"label": "internal", "header": "### Internal"},
-        ]),
+        input_labels=cast(
+            Any,
+            [
+                {"label": "breaking", "header": "### Breaking Changes"},
+                {"label": "security", "header": "### Security Fixes"},
+                {"label": "feature", "header": "### Features"},
+                {"label": "bug", "header": "### Fixes"},
+                {"label": "refactor", "header": "### Refactors"},
+                {"label": "upgrade", "header": "### Upgrades"},
+                {"label": "docs", "header": "### Docs"},
+                {"label": "lang-all", "header": "### Translations"},
+                {"label": "internal", "header": "### Internal"},
+            ],
+        ),
         input_next_section_start="^### ",
     )
     pr = TemplateDataPR(
@@ -799,8 +850,10 @@ def test_multiple_header_sections():
         user=TemplateDataUser(login="tiangolo", html_url="https://github.com/tiangolo"),
     )
     new_content = generate_content(content=content, settings=settings, pr=pr, labels=[])
-    assert new_content == inspect.cleandoc(
-        """
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     # Release Notes
 
     ## Latest Changes
@@ -850,6 +903,8 @@ def test_multiple_header_sections():
     * ✏ Fix typo in index and README. PR [#4](https://github.com/tiangolo/asyncer/pull/4) by [@sanders41](https://github.com/sanders41).
 
     """
+        )
+        + "\n"
     )
 
 
@@ -910,17 +965,20 @@ def test_multiple_header_sections_label():
         input_token="secret",
         input_latest_changes_header="## Latest Changes",
         input_end_regex="^## ",
-        input_labels=cast(Any, [
-            {"label": "breaking", "header": "### Breaking Changes"},
-            {"label": "security", "header": "### Security Fixes"},
-            {"label": "feature", "header": "### Features"},
-            {"label": "bug", "header": "### Fixes"},
-            {"label": "refactor", "header": "### Refactors"},
-            {"label": "upgrade", "header": "### Upgrades"},
-            {"label": "docs", "header": "### Docs"},
-            {"label": "lang-all", "header": "### Translations"},
-            {"label": "internal", "header": "### Internal"},
-        ]),
+        input_labels=cast(
+            Any,
+            [
+                {"label": "breaking", "header": "### Breaking Changes"},
+                {"label": "security", "header": "### Security Fixes"},
+                {"label": "feature", "header": "### Features"},
+                {"label": "bug", "header": "### Fixes"},
+                {"label": "refactor", "header": "### Refactors"},
+                {"label": "upgrade", "header": "### Upgrades"},
+                {"label": "docs", "header": "### Docs"},
+                {"label": "lang-all", "header": "### Translations"},
+                {"label": "internal", "header": "### Internal"},
+            ],
+        ),
         input_next_section_start="^### ",
     )
     pr = TemplateDataPR(
@@ -929,9 +987,13 @@ def test_multiple_header_sections_label():
         html_url="https://example.com/pr/42",
         user=TemplateDataUser(login="tiangolo", html_url="https://github.com/tiangolo"),
     )
-    new_content = generate_content(content=content, settings=settings, pr=pr, labels=["docs"])
-    assert new_content == inspect.cleandoc(
-        """
+    new_content = generate_content(
+        content=content, settings=settings, pr=pr, labels=["docs"]
+    )
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
     # Release Notes
 
     ## Latest Changes
@@ -980,4 +1042,6 @@ def test_multiple_header_sections_label():
     * ✏ Fix typo in index and README. PR [#4](https://github.com/tiangolo/asyncer/pull/4) by [@sanders41](https://github.com/sanders41).
 
     """
+        )
+        + "\n"
     )
