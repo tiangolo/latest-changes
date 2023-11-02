@@ -24,7 +24,7 @@ jobs:
       - uses: tiangolo/latest-changes@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          latest_changes_header: '### Latest Changes - Latest Changes 🤷\n\n'
+          latest_changes_header: '### Latest Changes - Latest Changes 🤷'
           debug_logs: true
     # - name: Secure tmate session
     #   run: curl https://github.com/tiangolo.keys > ~/.tmate_authorized_keys && echo 'set tmate-authorized-keys "~/.tmate_authorized_keys"' > ~/.xtmate.conf
