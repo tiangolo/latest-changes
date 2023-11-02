@@ -146,7 +146,7 @@ def generate_content(
                 index=-1,
             )
             sections_keys[label.label] = section
-        if label.label in labels:
+        if label.label in labels and not found:
             found = True
             section.content = f"{message}\n{section.content}".strip()
         new_sections.append(section)
