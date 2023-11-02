@@ -44,7 +44,7 @@ inputs:
         {"label": "internal", "header": "#### Internal"}
       ]
   next_section_start:
-    description: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should have that string with the start, like `^#### `.
+    description: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should match that, like `^#### `.
     default: '^#### '
 runs:
   using: docker
