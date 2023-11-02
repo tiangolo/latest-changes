@@ -317,6 +317,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Internal
+
+* ⬆ Bump docker/login-action from 1 to 3. PR [#51](https://github.com/tiangolo/latest-changes/pull/51) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ### 0.1.0
 
 #### Features
