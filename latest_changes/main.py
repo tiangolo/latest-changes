@@ -172,7 +172,7 @@ def generate_content(
     else:
         new_release_content = updated_content
 
-    new_content = f"{pre_header_content}\n\n{new_release_content}\n\n{post_release_content}".strip()
+    new_content = f"{pre_header_content}\n\n{new_release_content}\n\n{post_release_content}".strip() + "\n"
     return new_content
 
 
