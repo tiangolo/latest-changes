@@ -133,6 +133,7 @@ You can configure:
 * `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `next_release_start` should be `^### `.
 * `debug_logs`: Set to `'true'` to show logs with the current settings.
 * `labels`: A JSON array of JSON objects with a `label` that you would put in each PR and the `header` that would be used in the release notes. See the example below.
+* `next_section_start`: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should have that string with the start, like `^#### `.
 
 ## Configuration example
 
@@ -195,6 +196,8 @@ jobs:
             {"label": "internal", "header": "### Internal"},
             {"label": "egg", "header": "### Easter Eggs"}
           ]
+        # This should match the start of the label headers
+        next_section_start: '^### '
 ```
 
 In this custom config:
@@ -244,6 +247,8 @@ And that Markdown will be shown like:
 * It will show a lot of debugging information.
 
 * It will use the same default labels and headers plus another one for easter eggs, but with 3 hash symbols instead of the default of 4.
+
+* It will detect the start of each header section (the ones from the labels) with the regular expression `^### `.
 
 ## Protected Branches
 
