@@ -53,8 +53,6 @@ After merging a PR to the main branch, it will:
 
 ```Markdown
 ### Latest Changes
-
-
 ```
 
 * Right after that, it will add a new list item with the changes:
@@ -322,6 +320,7 @@ So, the commits will still be shown as made by `github-actions`.
 * 🔥 Remove config pushing to custom branch for debugging. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
 * 🚀 Publish amd64 and arm64 versions, and publish to GitHub Container Registry, fix git in containers. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add docs for using latest-changes with protected branches. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.0.3
 
 * 🚚 Update Python module name to latest_changes to avoid conflicts with any repo directory "app". PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
