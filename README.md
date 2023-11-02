@@ -317,6 +317,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Upgrades
+
+* ⬆ Update httpx requirement from <0.16.0,>=0.15.5 to >=0.15.5,<0.26.0. PR [#54](https://github.com/tiangolo/latest-changes/pull/54) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 #### Internal
 
 * ⬆ Bump docker/setup-buildx-action from 1 to 3. PR [#53](https://github.com/tiangolo/latest-changes/pull/53) by [@dependabot[bot]](https://github.com/apps/dependabot).
