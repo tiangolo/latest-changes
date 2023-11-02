@@ -36,7 +36,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-**Note**: you can also use the GitHub action directly intead of with Docker, but that would take an extra minute:
+**Note**: you can also use the GitHub action directly instead of with Docker, but that would take an extra minute:
 
 ```YAML
       # - uses: docker://tiangolo/latest-changes:0.0.3
@@ -57,8 +57,6 @@ After merging a PR to the main branch, it will:
 
 ```
 
-...including the two breaking lines.
-
 * Right after that, it will add a new list item with the changes:
     * Using the title from the PR.
         * **Tip**: make sure the PR has the title you want before merging it.
@@ -76,6 +74,40 @@ You can see an example of how it works in this same file, at the bottom, in [Lat
 * Then it will commit the changes, and push them to your repo. 🚀
 
 As the changes are simply written to a file in your repo, you can later tweak them however you want. You can add links, extend the information, remove irrelevant changes, etc. ✨
+
+## Using Labels
+
+You can also use labels in the PRs to configure which sections they should show up in the release notes.
+
+By default, it will use these labels and headers:
+
+* `breaking`: `#### Breaking Changes`
+* `security`: `#### Security Fixes`
+* `feature`: `#### Features`
+* `bug`: `#### Fixes`
+* `refactor`: `#### Refactors`
+* `upgrade`: `#### Upgrades`
+* `docs`: `#### Docs`
+* `lang-all`: `#### Translations`
+* `internal`: `#### Internal`
+
+So, if you have a PR with a label `feature`, by default, it will show up in the section about features, like:
+
+> ### Latest Changes
+>
+> #### Features
+>
+> * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
+
+You can configure the labels and headers used in the GitHub Action `labels` workflow configuration.
+
+It takes a JSON array of JSON objects that contain a key `label` with the label you would add to each PR, and a key `header` with the header text that should be added to the release notes for that label.
+
+The order is important, the first label from the list that is found in your PR is the one that will be used. So, if you have a PR that has both labels `feature` and `bug`, if you use the default configuration, it will show up in the section for features as that comes first, if you want it to show up in the section for bugs you would need to change the order of the list of this configuration to have `bug` first.
+
+Note that this JSON has to be passed as a string because that's the only thing that GitHub Actions support for configurations.
+
+See the example below in the configuration section.
 
 ## Existing PRs - Running Manually
 
@@ -96,9 +128,11 @@ So, in those cases, it won't do everything automatically, you will have to manua
 You can configure:
 
 * `latest_changes_file`: The file to modify with the latest changes. For example: `./docs/latest-changes.rst`.
-* `latest_changes_header`: The header to look for before adding a new message. for example: `# CHANGELOG \n\n`.
+* `latest_changes_header`: The header to look for before adding a new message. for example: `# CHANGELOG`.
 * `template_file`: A custom Jinja2 template file to use to generate the message, you could use this to generate a different message or to use a different format, for example, HTML instead of the default Markdown.
+* `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `next_release_start` should be `^### `.
 * `debug_logs`: Set to `'true'` to show logs with the current settings.
+* `labels`: A JSON array of JSON objects with a `label` that you would put in each PR and the `header` that would be used in the release notes. See the example below.
 
 ## Configuration example
 
@@ -108,15 +142,11 @@ You could have a custom Jinja2 template with the message to write at `./.github/
 
 ```Jinja2
 This changed: {{pr.title}}. Done by [the GitHub user {{pr.user.login}}]({{pr.user.html_url}}). Check the [Pull Request {{pr.number}} with the changes and stuff]({{pr.html_url}}). now back to code. 🤓
-
-
 ```
 
 **Note**: you can use any location in your repository for the Jinja2 template.
 
 **Tip**: The `pr` object is a [PyGitHub `PullRequest` object](https://pygithub.readthedocs.io/en/latest/github_objects/PullRequest.html), you can extract any other information you need from it.
-
-Notice that the Jinja2 template has 2 trailing newlines. Jinja2 we need one so that the next message shows below, instead of the same line, and Jinja2 eats one 🤷, so we put 2.
 
 Then you could have a workflow like:
 
@@ -144,9 +174,27 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
-        latest_changes_header: '# Release Notes\n\n'
+        latest_changes_header: '# Release Notes'
         template_file: ./.github/workflows/release-notes.jinja2
+        # The next release will start with this RegEx, for example "## 0.2.0"
+        end_regex: '^## '
         debug_logs: true
+        # Here we use a yaml multiline string to pass a JSON array of JSON objects in a more readable way
+        # In these case we use the same default labels and the same header titles, but the headers use 3 hash symbols instead of the default of 4
+        # We also add a custom last label "egg" for PRs with easter eggs.
+        labels: >
+          [
+            {"label": "breaking", "header": "### Breaking Changes"},
+            {"label": "security", "header": "### Security Fixes"},
+            {"label": "feature", "header": "### Features"},
+            {"label": "bug", "header": "### Fixes"},
+            {"label": "refactor", "header": "### Refactors"},
+            {"label": "upgrade", "header": "### Upgrades"},
+            {"label": "docs", "header": "### Docs"},
+            {"label": "lang-all", "header": "### Translations"},
+            {"label": "internal", "header": "### Internal"},
+            {"label": "egg", "header": "### Easter Eggs"}
+          ]
 ```
 
 In this custom config:
@@ -175,7 +223,7 @@ docker://tiangolo/latest-changes:0.0.3
 
 ```
 
-**Note**: The `latest_changes_header` is a [regular expression](https://regex101.com/). In this case it has two newlines, and the mesage will be added right after that (without adding an extra newline).
+**Note**: The `latest_changes_header` is a [regular expression](https://regex101.com/). In this case it has two newlines, and the message will be added right after that (without adding an extra newline).
 
 So it will generate messages like:
 
@@ -191,21 +239,11 @@ And that Markdown will be shown like:
 >
 > * This changed: ✨ Add support for Jinja2 templates for changes notes. Done by [the GitHub user tiangolo](https://github.com/tiangolo). Check the [Pull Request 23 with the changes and stuff](https://github.com/tiangolo/latest-changes/pull/23). now back to code. 🤓
 
-**Note**: if you use the default of `### Latest Changes\n\n`, or add one like the one in this example with two newlines, this GitHub action will expect the two newlines to exist. But if your release notes are empty and the file only contains:
+* It will expect that the end of the content it should handle starts with the header of the next release, with the regular expression `^## `. This will be used to organize the changes in the sections with the headers from the `labels` configuration.
 
-```Markdown
-# Release Notes
-```
+* It will show a lot of debugging information.
 
-then this action won't be able to add the first message. So, make sure the latest changes file has the format expected, for example with the two newlines:
-
-```Markdown
-# Release Notes
-
-
-```
-
-* Lastly, it will show a lot of debugging information.
+* It will use the same default labels and headers plus another one for easter eggs, but with 3 hash symbols instead of the default of 4.
 
 ## Protected Branches
 
