@@ -130,10 +130,10 @@ You can configure:
 * `latest_changes_file`: The file to modify with the latest changes. For example: `./docs/latest-changes.rst`.
 * `latest_changes_header`: The header to look for before adding a new message. for example: `# CHANGELOG`.
 * `template_file`: A custom Jinja2 template file to use to generate the message, you could use this to generate a different message or to use a different format, for example, HTML instead of the default Markdown.
-* `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `next_release_start` should be `^### `.
+* `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `.
 * `debug_logs`: Set to `'true'` to show logs with the current settings.
 * `labels`: A JSON array of JSON objects with a `label` that you would put in each PR and the `header` that would be used in the release notes. See the example below.
-* `next_section_start`: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should have that string with the start, like `^#### `.
+* `next_section_start`: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should match that, like `^#### `.
 
 ## Configuration example
 
@@ -222,8 +222,6 @@ docker://tiangolo/latest-changes:0.0.3
 
 ```Markdown
 # Release Notes
-
-
 ```
 
 **Note**: The `latest_changes_header` is a [regular expression](https://regex101.com/). In this case it has two newlines, and the message will be added right after that (without adding an extra newline).
@@ -242,7 +240,7 @@ And that Markdown will be shown like:
 >
 > * This changed: ✨ Add support for Jinja2 templates for changes notes. Done by [the GitHub user tiangolo](https://github.com/tiangolo). Check the [Pull Request 23 with the changes and stuff](https://github.com/tiangolo/latest-changes/pull/23). now back to code. 🤓
 
-* It will expect that the end of the content it should handle starts with the header of the next release, with the regular expression `^## `. This will be used to organize the changes in the sections with the headers from the `labels` configuration.
+* It will expect that the end of the content starts with the regular expression `^## `, normally because that's how the next release starts. This will be used to organize the content in the sections with the headers from the `labels` configuration.
 
 * It will show a lot of debugging information.
 

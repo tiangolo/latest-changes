@@ -21,7 +21,7 @@ inputs:
     required: false
     default: /app/latest_changes/latest-changes.jinja2
   end_regex:
-    description: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `next_release_start` should be `^### `.
+    description: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `.
     default: '^### '
     required: false
   debug_logs:
