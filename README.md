@@ -41,7 +41,7 @@ jobs:
 ```YAML
       # - uses: docker://tiangolo/latest-changes:0.1.0
       # This is slower but also works
-      - uses: tiangolo/latest-changes:0.1.0
+      - uses: tiangolo/latest-changes@0.1.0
 ```
 
 In this minimal example, it uses all the default configurations.
@@ -168,8 +168,8 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: tiangolo/latest-changes:0.1.0
+    - uses: actions/checkout@v2
+    - uses: tiangolo/latest-changes@0.1.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -204,7 +204,7 @@ In this custom config:
 * It uses the GitHub action directly:
 
 ```
-tiangolo/latest-changes:0.1.0
+tiangolo/latest-changes@0.1.0
 ```
 
 instead of with Docker:
