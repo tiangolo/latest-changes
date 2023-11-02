@@ -326,6 +326,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 * ⬆️ Upgrade GitHub Action checkout and references to it. PR [#49](https://github.com/tiangolo/latest-changes/pull/49) by [@tiangolo](https://github.com/tiangolo).
 
+#### Internal
+
+* 👷 Update CI, Dependabot, funding. PR [#50](https://github.com/tiangolo/latest-changes/pull/50) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.0.3
 
 * 🚚 Update Python module name to latest_changes to avoid conflicts with any repo directory "app". PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
