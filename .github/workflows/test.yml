@@ -44,9 +44,6 @@ jobs:
       - run: mkdir coverage
       - name: Test
         run: bash scripts/test.sh
-        env:
-          COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py
-          CONTEXT: ${{ runner.os }}-py
       - run: coverage html --show-contexts --title "Coverage for ${{ github.sha }}"
 
       - name: Store coverage HTML
