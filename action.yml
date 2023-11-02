@@ -1,29 +1,51 @@
 name: Tiangolo's Latest Changes
 author: Sebastián Ramírez <tiangolo@gmail.com>
-description: Update the release notes with the "latest changes" right after a PR is merged
+description: Update the release notes with the "latest changes" right after a PR is merged.
 inputs:
   token:
-    description: Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}
+    description: Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}.
     required: true
   number:
     description: Optional PR number to call this GitHub Action manually in a workflow.
     required: false
   latest_changes_file:
-    description: The file to add the latest changes
+    description: The file to add the latest changes.
     default: README.md
     required: false
   latest_changes_header:
-    description: Header to search for in the latest changes file, this action will add the changes right after that string (including newlines)
-    default: '### Latest Changes\n\n'
+    description: Header to search for in the latest changes file, this action will add the changes right after that string.
+    default: '### Latest Changes'
     required: false
   template_file:
     description: To override the default message with a custom Jinja2 template, use a path relative to the repo.
     required: false
     default: /app/latest_changes/latest-changes.jinja2
+  end_regex:
+    description: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `.
+    default: '^### '
+    required: false
   debug_logs:
     description: Use debug=True to enable more logging, useful to see the object shape for custom Jinja2 templates
     required: false
     default: 'false'
+  labels:
+    description: A JSON array of JSON objects that contain a key `label` with the label you would add to each PR, and a key `header` with the header text that should be added to the release notes for that label. The order is important, the first label from the list that is found in your PR is the one that will be used. So, if you have a PR that has both labels `feature` and `bug`, if you use the default configuration, it will show up in the section for features, if you want it to show up in the section for bugs you would need to change the order of the list of this configuration to have `bug` first. Note that this JSON has to be passed as a string because that's the only thing that GitHub Actions support for configurations.
+    required: false
+    default: >
+      [
+        {"label": "breaking", "header": "#### Breaking Changes"},
+        {"label": "security", "header": "#### Security Fixes"},
+        {"label": "feature", "header": "#### Features"},
+        {"label": "bug", "header": "#### Fixes"},
+        {"label": "refactor", "header": "#### Refactors"},
+        {"label": "upgrade", "header": "#### Upgrades"},
+        {"label": "docs", "header": "#### Docs"},
+        {"label": "lang-all", "header": "#### Translations"},
+        {"label": "internal", "header": "#### Internal"}
+      ]
+  next_section_start:
+    description: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should match that, like `^#### `.
+    default: '^#### '
 runs:
   using: docker
   image: Dockerfile
