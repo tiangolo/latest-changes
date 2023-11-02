@@ -317,19 +317,23 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Fixes
+
+* 🐛 Fix handling multiple section headers. PR [#57](https://github.com/tiangolo/latest-changes/pull/57) by [@tiangolo](https://github.com/tiangolo).
+
 #### Upgrades
 
 * ⬆ Update httpx requirement from <0.16.0,>=0.15.5 to >=0.15.5,<0.26.0. PR [#54](https://github.com/tiangolo/latest-changes/pull/54) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+#### Docs
+
+* ✏️ Fix typo in syntax for using the GitHub Action tag directly (instead of with Docker) in README. PR [#39](https://github.com/tiangolo/latest-changes/pull/39) by [@art049](https://github.com/art049).
 
 #### Internal
 
 * ⬆ Bump docker/setup-buildx-action from 1 to 3. PR [#53](https://github.com/tiangolo/latest-changes/pull/53) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump docker/build-push-action from 2 to 5. PR [#52](https://github.com/tiangolo/latest-changes/pull/52) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump docker/login-action from 1 to 3. PR [#51](https://github.com/tiangolo/latest-changes/pull/51) by [@dependabot[bot]](https://github.com/apps/dependabot).
-
-#### Docs
-
-* ✏️ Fix typo in syntax for using the GitHub Action tag directly (instead of with Docker) in README. PR [#39](https://github.com/tiangolo/latest-changes/pull/39) by [@art049](https://github.com/art049).
 
 ### 0.1.0
 
