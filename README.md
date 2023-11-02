@@ -30,7 +30,7 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: docker://tiangolo/latest-changes:0.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -168,7 +168,7 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: tiangolo/latest-changes:0.0.3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -256,15 +256,15 @@ You need to create a new GitHub access token. For example, a [personal access to
 
 Then, in your repository, go to "Settings" -> "Secrets", and [create a new "repository secret"](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Use the access token as the value, and for the name, it could be something like `ACTIONS_TOKEN`. Just remember to use the same name in the configurations shown below.
 
-Then in your configuration, pass that token to the action `actions/checkout@v2`:
+Then in your configuration, pass that token to the action `actions/checkout@v4`:
 
 ```YAML
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
 ```
 
-**Note**: you pass that token to the official `actions/checkout@v2`, not to this `latest-changes` action.
+**Note**: you pass that token to the official `actions/checkout@v4`, not to this `latest-changes` action.
 
 The complete example would look like:
 
@@ -290,7 +290,7 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
       - uses: docker://tiangolo/latest-changes:0.0.3
@@ -300,7 +300,7 @@ jobs:
 
 ### How does it work?
 
-By passing the custom access token to the action `actions/checkout@v2`, this action will configure `git` with those credentials.
+By passing the custom access token to the action `actions/checkout@v4`, this action will configure `git` with those credentials.
 
 And then when `latest-changes` runs and executes some commands with `git`, including `git push`, they will be done with your access token.
 
