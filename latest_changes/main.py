@@ -108,11 +108,13 @@ def generate_content(
     sections: list[SectionContent] = []
     sectionless_content = ""
     for label in settings.input_labels:
-        label_match = re.search(label.header, release_content)
+        label_match = re.search(label.header, release_content, flags=re.MULTILINE)
         if not label_match:
             continue
         next_label_match = re.search(
-            settings.input_next_section_start, release_content[label_match.end() :]
+            settings.input_next_section_start,
+            release_content[label_match.end() :],
+            flags=re.MULTILINE,
         )
         label_section_end = (
             len(release_content)
@@ -158,13 +160,12 @@ def generate_content(
     new_release_content = ""
     if sectionless_content:
         new_release_content = f"{sectionless_content}"
-    updated_content = "\n\n".join(
-        [
-            f"{section.header}\n\n{section.content}"
-            for section in new_sections
-            if section.content
-        ]
-    )
+    use_sections = [
+        f"{section.header}\n\n{section.content}"
+        for section in new_sections
+        if section.content
+    ]
+    updated_content = "\n\n".join(use_sections)
     if new_release_content:
         if updated_content:
             new_release_content += f"\n\n{updated_content}"
