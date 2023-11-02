@@ -319,6 +319,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆ Bump docker/setup-buildx-action from 1 to 3. PR [#53](https://github.com/tiangolo/latest-changes/pull/53) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump docker/build-push-action from 2 to 5. PR [#52](https://github.com/tiangolo/latest-changes/pull/52) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump docker/login-action from 1 to 3. PR [#51](https://github.com/tiangolo/latest-changes/pull/51) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
