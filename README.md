@@ -317,6 +317,8 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+### 0.1.1
+
 #### Fixes
 
 * 🐛 Fix handling multiple section headers. PR [#57](https://github.com/tiangolo/latest-changes/pull/57) by [@tiangolo](https://github.com/tiangolo).
