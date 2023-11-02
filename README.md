@@ -317,6 +317,8 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+* 👷 Do not push the slim branch for debugging. PR [#56](https://github.com/tiangolo/latest-changes/pull/56) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.1.0
 
 #### Features
