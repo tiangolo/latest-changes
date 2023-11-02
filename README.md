@@ -317,6 +317,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+* ✨ Add support for labels and section headers (features, fixes, etc.). PR [#48](https://github.com/tiangolo/latest-changes/pull/48) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove config pushing to custom branch for debugging. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
 * 🚀 Publish amd64 and arm64 versions, and publish to GitHub Container Registry, fix git in containers. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add docs for using latest-changes with protected branches. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
