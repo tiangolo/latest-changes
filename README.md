@@ -322,6 +322,8 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+### 0.2.0
+
 #### Refactors
 
 * ♻️ Separate label header prefix from label text with `label_header_prefix`, this allows re-using the default labels while only changing the header level. PR [#58](https://github.com/tiangolo/latest-changes/pull/58) by [@tiangolo](https://github.com/tiangolo).
