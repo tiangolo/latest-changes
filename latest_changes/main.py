@@ -28,17 +28,17 @@ class Settings(BaseSettings):
     input_end_regex: str = "^### "
     input_debug_logs: Optional[bool] = False
     input_labels: List[Section] = [
-        Section(label="breaking", header="#### Breaking Changes"),
-        Section(label="security", header="#### Security Fixes"),
-        Section(label="feature", header="#### Features"),
-        Section(label="bug", header="#### Fixes"),
-        Section(label="refactor", header="#### Refactors"),
-        Section(label="upgrade", header="#### Upgrades"),
-        Section(label="docs", header="#### Docs"),
-        Section(label="lang-all", header="#### Translations"),
-        Section(label="internal", header="#### Internal"),
+        Section(label="breaking", header="Breaking Changes"),
+        Section(label="security", header="Security Fixes"),
+        Section(label="feature", header="Features"),
+        Section(label="bug", header="Fixes"),
+        Section(label="refactor", header="Refactors"),
+        Section(label="upgrade", header="Upgrades"),
+        Section(label="docs", header="Docs"),
+        Section(label="lang-all", header="Translations"),
+        Section(label="internal", header="Internal"),
     ]
-    input_next_section_start: str = "^#### "
+    input_label_header_prefix: str = "#### "
 
 
 class PartialGitHubEventInputs(BaseModel):
@@ -108,11 +108,15 @@ def generate_content(
     sections: list[SectionContent] = []
     sectionless_content = ""
     for label in settings.input_labels:
-        label_match = re.search(label.header, release_content, flags=re.MULTILINE)
+        label_match = re.search(
+            f"^{settings.input_label_header_prefix}{label.header}",
+            release_content,
+            flags=re.MULTILINE,
+        )
         if not label_match:
             continue
         next_label_match = re.search(
-            settings.input_next_section_start,
+            f"^{settings.input_label_header_prefix}",
             release_content[label_match.end() :],
             flags=re.MULTILINE,
         )
@@ -161,7 +165,7 @@ def generate_content(
     if sectionless_content:
         new_release_content = f"{sectionless_content}"
     use_sections = [
-        f"{section.header}\n\n{section.content}"
+        f"{settings.input_label_header_prefix}{section.header}\n\n{section.content}"
         for section in new_sections
         if section.content
     ]
@@ -172,7 +176,10 @@ def generate_content(
     else:
         new_release_content = updated_content
 
-    new_content = f"{pre_header_content}\n\n{new_release_content}\n\n{post_release_content}".strip() + "\n"
+    new_content = (
+        f"{pre_header_content}\n\n{new_release_content}\n\n{post_release_content}".strip()
+        + "\n"
+    )
     return new_content
 
 

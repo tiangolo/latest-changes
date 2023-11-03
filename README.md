@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: docker://tiangolo/latest-changes:0.1.0
+      - uses: docker://tiangolo/latest-changes:0.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -39,9 +39,9 @@ jobs:
 **Note**: you can also use the GitHub action directly instead of with Docker, but that would take an extra minute:
 
 ```YAML
-      # - uses: docker://tiangolo/latest-changes:0.1.0
+      # - uses: docker://tiangolo/latest-changes:0.2.0
       # This is slower but also works
-      - uses: tiangolo/latest-changes@0.1.0
+      - uses: tiangolo/latest-changes@0.2.0
 ```
 
 In this minimal example, it uses all the default configurations.
@@ -79,15 +79,15 @@ You can also use labels in the PRs to configure which sections they should show 
 
 By default, it will use these labels and headers:
 
-* `breaking`: `#### Breaking Changes`
-* `security`: `#### Security Fixes`
-* `feature`: `#### Features`
-* `bug`: `#### Fixes`
-* `refactor`: `#### Refactors`
-* `upgrade`: `#### Upgrades`
-* `docs`: `#### Docs`
-* `lang-all`: `#### Translations`
-* `internal`: `#### Internal`
+* `breaking`: `Breaking Changes`
+* `security`: `Security Fixes`
+* `feature`: `Features`
+* `bug`: `Fixes`
+* `refactor`: `Refactors`
+* `upgrade`: `Upgrades`
+* `docs`: `Docs`
+* `lang-all`: `Translations`
+* `internal`: `Internal`
 
 So, if you have a PR with a label `feature`, by default, it will show up in the section about features, like:
 
@@ -97,15 +97,9 @@ So, if you have a PR with a label `feature`, by default, it will show up in the 
 >
 > * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 
-You can configure the labels and headers used in the GitHub Action `labels` workflow configuration.
+You can configure the labels and headers used in the GitHub Action `labels` workflow configuration, and you can configure the header prefix, by default `#### `.
 
-It takes a JSON array of JSON objects that contain a key `label` with the label you would add to each PR, and a key `header` with the header text that should be added to the release notes for that label.
-
-The order is important, the first label from the list that is found in your PR is the one that will be used. So, if you have a PR that has both labels `feature` and `bug`, if you use the default configuration, it will show up in the section for features as that comes first, if you want it to show up in the section for bugs you would need to change the order of the list of this configuration to have `bug` first.
-
-Note that this JSON has to be passed as a string because that's the only thing that GitHub Actions support for configurations.
-
-See the example below in the configuration section.
+Read more about it in the section about configuration.
 
 ## Existing PRs - Running Manually
 
@@ -128,10 +122,20 @@ You can configure:
 * `latest_changes_file`: The file to modify with the latest changes. For example: `./docs/latest-changes.rst`.
 * `latest_changes_header`: The header to look for before adding a new message. for example: `# CHANGELOG`.
 * `template_file`: A custom Jinja2 template file to use to generate the message, you could use this to generate a different message or to use a different format, for example, HTML instead of the default Markdown.
-* `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `.
+* `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `. This is used to limit the content updated as this will read the existing sub sections and possibly update them using the labels configuration and the labels in the PR.
 * `debug_logs`: Set to `'true'` to show logs with the current settings.
 * `labels`: A JSON array of JSON objects with a `label` that you would put in each PR and the `header` that would be used in the release notes. See the example below.
-* `next_section_start`: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should match that, like `^#### `.
+* `label_header_prefix`: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `#### `, so the headers will look like `#### Features`.
+
+### Configuring Labels
+
+The `labels` configuration takes a JSON array of JSON objects that contain a key `label` with the label you would add to each PR, and a key `header` with the header text that should be added to the release notes for that label.
+
+The order is important, the first label from the list that is found in your PR is the one that will be used. So, if you have a PR that has both labels `feature` and `bug`, if you use the default configuration, it will show up in the section for features, as that comes first. If you want it to show up in the section for bugs you would need to change the order of the list of this configuration to have `bug` first.
+
+Note that this JSON has to be passed as a string because that's the only thing that GitHub Actions support for configurations.
+
+If you want to keep the same default labels but change the header level, so, add or remove hash symbols, you can set the `label_header_prefix` configuration. You could also use it to set a different header prefix, but the common case is changing the section header level.
 
 ## Configuration example
 
@@ -169,7 +173,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: tiangolo/latest-changes@0.1.0
+    - uses: tiangolo/latest-changes@0.2.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -183,19 +187,20 @@ jobs:
         # We also add a custom last label "egg" for PRs with easter eggs.
         labels: >
           [
-            {"label": "breaking", "header": "### Breaking Changes"},
-            {"label": "security", "header": "### Security Fixes"},
-            {"label": "feature", "header": "### Features"},
-            {"label": "bug", "header": "### Fixes"},
-            {"label": "refactor", "header": "### Refactors"},
-            {"label": "upgrade", "header": "### Upgrades"},
-            {"label": "docs", "header": "### Docs"},
-            {"label": "lang-all", "header": "### Translations"},
-            {"label": "internal", "header": "### Internal"},
-            {"label": "egg", "header": "### Easter Eggs"}
+            {"label": "breaking", "header": "Breaking Changes"},
+            {"label": "security", "header": "Security Fixes"},
+            {"label": "feature", "header": "Features"},
+            {"label": "bug", "header": "Fixes"},
+            {"label": "refactor", "header": "Refactors"},
+            {"label": "upgrade", "header": "Upgrades"},
+            {"label": "docs", "header": "Docs"},
+            {"label": "lang-all", "header": "Translations"},
+            {"label": "internal", "header": "Internal"},
+            {"label": "egg", "header": "Easter Eggs"}
           ]
-        # This should match the start of the label headers
-        next_section_start: '^### '
+        # This will be added to the start of each label's header and
+        # will be used to detect existing label headers
+        label_header_prefix: '### '
 ```
 
 In this custom config:
@@ -204,13 +209,13 @@ In this custom config:
 * It uses the GitHub action directly:
 
 ```
-tiangolo/latest-changes@0.1.0
+tiangolo/latest-changes@0.2.0
 ```
 
 instead of with Docker:
 
 ```
-docker://tiangolo/latest-changes:0.1.0
+docker://tiangolo/latest-changes:0.2.0
 ```
 
 **Note**: that would make every run about 1 min slower, but you can do that if you prefer it 🤷.
@@ -222,7 +227,7 @@ docker://tiangolo/latest-changes:0.1.0
 # Release Notes
 ```
 
-**Note**: The `latest_changes_header` is a [regular expression](https://regex101.com/). In this case it has two newlines, and the message will be added right after that (without adding an extra newline).
+**Note**: The `latest_changes_header` is a [regular expression](https://regex101.com/).
 
 So it will generate messages like:
 
@@ -242,9 +247,9 @@ And that Markdown will be shown like:
 
 * It will show a lot of debugging information.
 
-* It will use the same default labels and headers plus another one for easter eggs, but with 3 hash symbols instead of the default of 4.
+* It will use the same default labels and headers plus another one for easter eggs.
 
-* It will detect the start of each header section (the ones from the labels) with the regular expression `^### `.
+* It will show those section headers from labels with 3 hash symbols instead of the default of 4. And it will also find any existing header checking for that prefix (it will use a regular expression like `^### `).
 
 ## Protected Branches
 
@@ -293,7 +298,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: docker://tiangolo/latest-changes:0.1.0
+      - uses: docker://tiangolo/latest-changes:0.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

@@ -33,19 +33,19 @@ inputs:
     required: false
     default: >
       [
-        {"label": "breaking", "header": "#### Breaking Changes"},
-        {"label": "security", "header": "#### Security Fixes"},
-        {"label": "feature", "header": "#### Features"},
-        {"label": "bug", "header": "#### Fixes"},
-        {"label": "refactor", "header": "#### Refactors"},
-        {"label": "upgrade", "header": "#### Upgrades"},
-        {"label": "docs", "header": "#### Docs"},
-        {"label": "lang-all", "header": "#### Translations"},
-        {"label": "internal", "header": "#### Internal"}
+        {"label": "breaking", "header": "Breaking Changes"},
+        {"label": "security", "header": "Security Fixes"},
+        {"label": "feature", "header": "Features"},
+        {"label": "bug", "header": "Fixes"},
+        {"label": "refactor", "header": "Refactors"},
+        {"label": "upgrade", "header": "Upgrades"},
+        {"label": "docs", "header": "Docs"},
+        {"label": "lang-all", "header": "Translations"},
+        {"label": "internal", "header": "Internal"}
       ]
-  next_section_start:
-    description: A RegEx for the start of the next label header section. If the headers start with `#### ` (as in `#### Features`), then this RegEx should match that, like `^#### `.
-    default: '^#### '
+  label_header_prefix:
+    description: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `#### `, so the headers will look like `#### Features`.
+    default: '#### '
 runs:
   using: docker
   image: Dockerfile
