@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: docker://tiangolo/latest-changes:0.2.0
+      - uses: docker://tiangolo/latest-changes:0.2.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -39,9 +39,9 @@ jobs:
 **Note**: you can also use the GitHub action directly instead of with Docker, but that would take an extra minute:
 
 ```YAML
-      # - uses: docker://tiangolo/latest-changes:0.2.0
+      # - uses: docker://tiangolo/latest-changes:0.2.1
       # This is slower but also works
-      - uses: tiangolo/latest-changes@0.2.0
+      - uses: tiangolo/latest-changes@0.2.1
 ```
 
 In this minimal example, it uses all the default configurations.
@@ -173,7 +173,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: tiangolo/latest-changes@0.2.0
+    - uses: tiangolo/latest-changes@0.2.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -209,13 +209,13 @@ In this custom config:
 * It uses the GitHub action directly:
 
 ```
-tiangolo/latest-changes@0.2.0
+tiangolo/latest-changes@0.2.1
 ```
 
 instead of with Docker:
 
 ```
-docker://tiangolo/latest-changes:0.2.0
+docker://tiangolo/latest-changes:0.2.1
 ```
 
 **Note**: that would make every run about 1 min slower, but you can do that if you prefer it 🤷.
@@ -298,7 +298,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: docker://tiangolo/latest-changes:0.2.0
+      - uses: docker://tiangolo/latest-changes:0.2.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -321,6 +321,8 @@ So, the commits will still be shown as made by `github-actions`.
 ## Release Notes
 
 ### Latest Changes - Latest Changes 🤷
+
+### 0.2.1
 
 #### Fixes
 
