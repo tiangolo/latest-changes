@@ -322,6 +322,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Fixes
+
+* 🐛 Detect if there's a second level header after the release content, to support the first change in a README with a last section for a license. PR [#59](https://github.com/tiangolo/latest-changes/pull/59) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.2.0
 
 #### Refactors
