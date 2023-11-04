@@ -1045,3 +1045,114 @@ def test_multiple_header_sections_label():
         )
         + "\n"
     )
+
+
+def test_first_change_with_extra_header():
+    raw_content = """
+    ## Release Notes
+
+    ### Latest Changes
+
+    ## License
+
+    Released under the MIT License.
+    """
+
+    content = inspect.cleandoc(raw_content)
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+    )
+    pr = TemplateDataPR(
+        title="Demo PR",
+        number=42,
+        html_url="https://example.com/pr/42",
+        user=TemplateDataUser(login="tiangolo", html_url="https://github.com/tiangolo"),
+    )
+    new_content = generate_content(
+        content=content, settings=settings, pr=pr, labels=["feature"]
+    )
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
+    ## Release Notes
+
+    ### Latest Changes
+
+    #### Features
+
+    * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
+
+    ## License
+
+    Released under the MIT License.
+    """
+        )
+        + "\n"
+    )
+
+
+def test_first_release_existing_content_with_extra_header():
+    raw_content = """
+    ## Release Note
+
+    ### Latest Changes
+
+    * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
+    
+    #### Features
+    
+    * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
+    
+    #### Docs
+    
+    * 📝 Add docs. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
+
+    ## License
+
+    Released under the MIT License.
+    """
+
+    content = inspect.cleandoc(raw_content)
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+    )
+    pr = TemplateDataPR(
+        title="Demo PR",
+        number=42,
+        html_url="https://example.com/pr/42",
+        user=TemplateDataUser(login="tiangolo", html_url="https://github.com/tiangolo"),
+    )
+    new_content = generate_content(
+        content=content, settings=settings, pr=pr, labels=["feature"]
+    )
+    assert (
+        new_content
+        == inspect.cleandoc(
+            """
+    ## Release Note
+
+    ### Latest Changes
+
+    * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
+    
+    #### Features
+    
+    * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
+    * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
+    
+    #### Docs
+    
+    * 📝 Add docs. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
+
+    ## License
+
+    Released under the MIT License.
+    """
+        )
+        + "\n"
+    )
