@@ -224,22 +224,27 @@ def main() -> None:
     subprocess.run(
         ["git", "config", "user.email", "github-actions@github.com"], check=True
     )
-    logging.info(
-        "Pulling the latest changes, including the latest merged PR (this one)"
-    )
-    subprocess.run(["git", "pull"], check=True)
-    content = settings.input_latest_changes_file.read_text()
+    number_of_trials = 10
+    logging.info(f"Number of trials (for race conditions): {number_of_trials}")
+    for trial in range(10):
+        logging.info(f"Running trial: {trial}")
+        logging.info(
+            "Pulling the latest changes, including the latest merged PR (this one)"
+        )
+        subprocess.run(["git", "pull"], check=True)
+        content = settings.input_latest_changes_file.read_text()
 
-    new_content = generate_content(
-        content=content,
-        settings=settings,
-        pr=pr,
-        labels=[label.name for label in pr.labels],
-    )
-    settings.input_latest_changes_file.write_text(new_content)
-    logging.info(f"Committing changes to: {settings.input_latest_changes_file}")
-    subprocess.run(["git", "add", str(settings.input_latest_changes_file)], check=True)
-    subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
-    logging.info(f"Pushing changes: {settings.input_latest_changes_file}")
-    subprocess.run(["git", "push"], check=True)
+        new_content = generate_content(
+            content=content,
+            settings=settings,
+            pr=pr,
+            labels=[label.name for label in pr.labels],
+        )
+        settings.input_latest_changes_file.write_text(new_content)
+        logging.info(f"Committing changes to: {settings.input_latest_changes_file}")
+        subprocess.run(["git", "add", str(settings.input_latest_changes_file)], check=True)
+        subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
+        logging.info(f"Pushing changes: {settings.input_latest_changes_file}")
+        subprocess.run(["git", "push"], check=True)
+        break
     logging.info("Finished")
