@@ -322,6 +322,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Features
+
+* ✨ Add retries to handle race conditions. PR [#63](https://github.com/tiangolo/latest-changes/pull/63) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.2.1
 
 #### Fixes
