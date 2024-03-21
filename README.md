@@ -322,6 +322,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Internal
+
+* 🔧 Add GitHub templates for discussions and issues, and security policy. PR [#67](https://github.com/tiangolo/latest-changes/pull/67) by [@alejsdev](https://github.com/alejsdev).
+
 ### 0.3.0
 
 #### Features
