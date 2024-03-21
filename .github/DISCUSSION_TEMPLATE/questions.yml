@@ -72,9 +72,9 @@ body:
 
         Write a short description telling me what you are doing, what you expect to happen, and what is currently happening.
       placeholder: |
-        * Open the browser and call the endpoint `/`.
-        * It returns a JSON with `{"message": "Hello World"}`.
-        * But I expected it to return `{"message": "Hello Morty"}`.
+        * Add a label `release` to a PR.
+        * Merge the PR.
+        * I expected this GitHub Action to make a release for me, but it didn't.
     validations:
       required: true
   - type: dropdown
