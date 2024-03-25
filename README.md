@@ -257,7 +257,9 @@ If you have a protected branch (for example `main` or `master`), this action wou
 
 But it's easy to fix if you are an admin in the repo and can push directly to the protected branch.
 
-You need to create a new GitHub access token. For example, a [personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). You will probably need to give it `repo` permissions.
+You need to create a new GitHub access token. For example, a [personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+You can create a "**Fine-grained token**" with "**Contents**" permissions for "**Read and write**" access.
 
 Then, in your repository, go to "Settings" -> "Secrets", and [create a new "repository secret"](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Use the access token as the value, and for the name, it could be something like `ACTIONS_TOKEN`. Just remember to use the same name in the configurations shown below.
 
