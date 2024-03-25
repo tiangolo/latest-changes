@@ -324,6 +324,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Docs
+
+* 📝 Update README docs for token permissions. PR [#68](https://github.com/tiangolo/latest-changes/pull/68) by [@tiangolo](https://github.com/tiangolo).
+
 #### Internal
 
 * 🔧 Add GitHub templates for discussions and issues, and security policy. PR [#67](https://github.com/tiangolo/latest-changes/pull/67) by [@alejsdev](https://github.com/alejsdev).
