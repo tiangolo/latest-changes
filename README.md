@@ -330,6 +330,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆ Update httpx requirement from <0.26.0,>=0.15.5 to >=0.15.5,<0.28.0. PR [#65](https://github.com/tiangolo/latest-changes/pull/65) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/cache from 3 to 4. PR [#64](https://github.com/tiangolo/latest-changes/pull/64) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 3 to 4. PR [#61](https://github.com/tiangolo/latest-changes/pull/61) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/setup-python from 4 to 5. PR [#60](https://github.com/tiangolo/latest-changes/pull/60) by [@dependabot[bot]](https://github.com/apps/dependabot).
