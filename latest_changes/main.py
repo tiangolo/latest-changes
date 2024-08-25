@@ -191,6 +191,7 @@ def main() -> None:
     safe_directory_config_content = "[safe]\n\tdirectory = /github/workspace"
     dotgitconfig_path = Path.home() / ".gitconfig"
     dotgitconfig_path.write_text(safe_directory_config_content)
+
     settings = Settings()
     if settings.input_debug_logs:
         logging.info(f"Using config: {settings.json()}")
@@ -210,6 +211,7 @@ def main() -> None:
             f"No PR number was found (PR number or workflow input) in the event file at: {settings.github_event_path}"
         )
         sys.exit(1)
+
     pr = repo.get_pull(number)
     if not pr.merged:
         logging.info("The PR was not merged, nothing else to do.")
@@ -219,6 +221,7 @@ def main() -> None:
             f"The latest changes files doesn't seem to exist: {settings.input_latest_changes_file}"
         )
         sys.exit(1)
+
     logging.info("Setting up GitHub Actions git user")
     subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
     subprocess.run(
@@ -242,9 +245,16 @@ def main() -> None:
         )
         settings.input_latest_changes_file.write_text(new_content)
         logging.info(f"Committing changes to: {settings.input_latest_changes_file}")
-        subprocess.run(["git", "add", str(settings.input_latest_changes_file)], check=True)
+        subprocess.run(
+            ["git", "add", str(settings.input_latest_changes_file)], check=True
+        )
         subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
         logging.info(f"Pushing changes: {settings.input_latest_changes_file}")
-        subprocess.run(["git", "push"], check=True)
-        break
+        result = subprocess.run(["git", "push"])
+        if result.returncode == 0:
+            break
+        # Didn't work, race condition, reset to try again
+        subprocess.run(["git", "reset", "HEAD^1"], check=True)
+        subprocess.run(["git", "checkout", "."], check=True)
+
     logging.info("Finished")
