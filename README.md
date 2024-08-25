@@ -330,6 +330,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆ Bump actions/setup-python from 4 to 5. PR [#60](https://github.com/tiangolo/latest-changes/pull/60) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Add GitHub templates for discussions and issues, and security policy. PR [#67](https://github.com/tiangolo/latest-changes/pull/67) by [@alejsdev](https://github.com/alejsdev).
 
 ### 0.3.0
