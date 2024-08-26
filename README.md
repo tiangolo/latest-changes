@@ -302,6 +302,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Docs
+
+* 📝 Tweak and fix tag to use. PR [#71](https://github.com/tiangolo/latest-changes/pull/71) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.3.1
 
 Now you can (and should) use the native GitHub Action directly, as in:
