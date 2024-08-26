@@ -33,6 +33,7 @@ jobs:
           tags: |
             tiangolo/latest-changes:latest
             ghcr.io/tiangolo/latest-changes:latest
+          file: base.dockerfile
       - name: Build and push tag
         if: github.event_name == 'release'
         uses: docker/build-push-action@v5
@@ -42,3 +43,4 @@ jobs:
           tags: |
             tiangolo/latest-changes:${{ github.event.release.tag_name }}
             ghcr.io/tiangolo/latest-changes:${{ github.event.release.tag_name }}
+          file: base.dockerfile
