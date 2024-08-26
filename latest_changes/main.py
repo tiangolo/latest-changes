@@ -2,8 +2,6 @@ import logging
 import re
 import subprocess
 import sys
-import time
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Optional, Union
 
@@ -252,14 +250,6 @@ def main() -> None:
         )
         subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
         logging.info(f"Pushing changes: {settings.input_latest_changes_file}")
-
-        # TODO: fix this
-        now = datetime.now(timezone.utc)
-        extra_minutes = 5 - (now.minute % 5)
-        extra_seconds = 60 - now.second
-        wait_time = extra_seconds + (extra_minutes * 60)
-        logging.info(f"Waiting for {wait_time} seconds before pushing")
-        time.sleep(wait_time)
 
         result = subprocess.run(["git", "push"])
         if result.returncode == 0:
