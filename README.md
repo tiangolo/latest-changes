@@ -306,6 +306,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 * 🐛 Fix race condition with retries, when more than one latest-changes is running. PR [#69](https://github.com/tiangolo/latest-changes/pull/69) by [@tiangolo](https://github.com/tiangolo).
 
+#### Refactors
+
+* ♻️ Make using the native GitHub Action re-use the existing Docker image instead of building from scratch. PR [#70](https://github.com/tiangolo/latest-changes/pull/70) by [@tiangolo](https://github.com/tiangolo).
+
 #### Docs
 
 * 📝 Update README docs for token permissions. PR [#68](https://github.com/tiangolo/latest-changes/pull/68) by [@tiangolo](https://github.com/tiangolo).
