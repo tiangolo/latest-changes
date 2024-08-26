@@ -304,6 +304,28 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### 0.3.1
 
+Now you can (and should) use the native GitHub Action directly, as in:
+
+```yaml
+...
+      - uses: tiangolo/latest-changes:0.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+instead of using the Docker image:
+
+```yaml
+...
+      - uses: docker://tiangolo/latest-changes:0.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+This way, Dependabot will be able to send you PRs updating the version automatically. 🚀
+
+The internal code and build setup was refactored so that the native GitHub Action still re-uses a prebuilt Docker image, so it's still fast. 😎
+
 #### Fixes
 
 * 🐛 Fix race condition with retries, when more than one latest-changes is running. PR [#69](https://github.com/tiangolo/latest-changes/pull/69) by [@tiangolo](https://github.com/tiangolo).
