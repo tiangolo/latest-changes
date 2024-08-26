@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: tiangolo/latest-changes:0.3.1
+      - uses: tiangolo/latest-changes@0.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -278,7 +278,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: tiangolo/latest-changes:0.3.1
+      - uses: tiangolo/latest-changes@0.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -308,7 +308,7 @@ Now you can (and should) use the native GitHub Action directly, as in:
 
 ```yaml
 ...
-      - uses: tiangolo/latest-changes:0.3.1
+      - uses: tiangolo/latest-changes@0.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
