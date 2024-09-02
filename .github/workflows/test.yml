@@ -51,6 +51,7 @@ jobs:
         with:
           name: coverage-html
           path: htmlcov
+          include-hidden-files: true
 
   # https://github.com/marketplace/actions/alls-green#why
   alls-green:  # This job does nothing and is only used for the branch protection
