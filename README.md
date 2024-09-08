@@ -308,6 +308,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆ Bump docker/build-push-action from 5 to 6. PR [#72](https://github.com/tiangolo/latest-changes/pull/72) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update `issue-manager.yml`. PR [#73](https://github.com/tiangolo/latest-changes/pull/73) by [@tiangolo](https://github.com/tiangolo).
 
 ### 0.3.1
