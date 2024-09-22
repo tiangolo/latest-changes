@@ -229,7 +229,7 @@ def main() -> None:
     )
     number_of_trials = 10
     logging.info(f"Number of trials (for race conditions): {number_of_trials}")
-    for trial in range(10):
+    for trial in range(number_of_trials):
         logging.info(f"Running trial: {trial}")
         logging.info(
             "Pulling the latest changes, including the latest merged PR (this one)"
