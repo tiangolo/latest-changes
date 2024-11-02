@@ -3214,7 +3214,7 @@ class WorkflowRun(BaseModel):
     head_branch: str = Field(..., example='master')
     head_sha: str = Field(
         ...,
-        description='The SHA of the head commit that points to the version of the worflow being run.',
+        description='The SHA of the head commit that points to the version of the workflow being run.',
         example='009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d',
     )
     run_number: int = Field(
