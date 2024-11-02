@@ -302,6 +302,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Refactors
+
+* ♻️ Refactor usage of internal `number_of_trials` variable, it was not being used, fix typo. PR [#75](https://github.com/tiangolo/latest-changes/pull/75) by [@nghiahsgs](https://github.com/nghiahsgs).
+
 #### Docs
 
 * 📝 Tweak and fix tag to use. PR [#71](https://github.com/tiangolo/latest-changes/pull/71) by [@tiangolo](https://github.com/tiangolo).
