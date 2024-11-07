@@ -302,6 +302,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Features
+
+* ✨ Prevent CI workflows from running on a latest changes commit, add `[skip ci]` to commit message. PR [#76](https://github.com/tiangolo/latest-changes/pull/76) by [@patrick91](https://github.com/patrick91).
+
 #### Refactors
 
 * ♻️ Refactor usage of internal `number_of_trials` variable, it was not being used, fix typo. PR [#75](https://github.com/tiangolo/latest-changes/pull/75) by [@nghiahsgs](https://github.com/nghiahsgs).
