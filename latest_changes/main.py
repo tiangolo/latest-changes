@@ -11,6 +11,11 @@ from jinja2 import Template
 from pydantic import BaseModel, SecretStr
 from pydantic_settings import BaseSettings
 
+COMMIT_MESSAGE = """
+📝 Update release notes
+
+[skip ci]
+""".strip()
 
 class Section(BaseModel):
     label: str
@@ -248,7 +253,7 @@ def main() -> None:
         subprocess.run(
             ["git", "add", str(settings.input_latest_changes_file)], check=True
         )
-        subprocess.run(["git", "commit", "-m", "📝 Update release notes"], check=True)
+        subprocess.run(["git", "commit", "-m", COMMIT_MESSAGE], check=True)
         logging.info(f"Pushing changes: {settings.input_latest_changes_file}")
 
         result = subprocess.run(["git", "push"])
