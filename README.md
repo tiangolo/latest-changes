@@ -302,6 +302,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Upgrades
+
+* ⬆ Update httpx requirement from <0.28.0,>=0.15.5 to >=0.15.5,<0.29.0. PR [#77](https://github.com/tiangolo/latest-changes/pull/77) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ### 0.3.2
 
 #### Features
