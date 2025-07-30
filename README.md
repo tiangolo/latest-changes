@@ -79,6 +79,7 @@ By default, it will use these labels and headers:
 * `upgrade`: `Upgrades`
 * `docs`: `Docs`
 * `lang-all`: `Translations`
+* `infra`: `Infrastructure`
 * `internal`: `Internal`
 
 So, if you have a PR with a label `feature`, by default, it will show up in the section about features, like:
@@ -187,6 +188,7 @@ jobs:
             {"label": "upgrade", "header": "Upgrades"},
             {"label": "docs", "header": "Docs"},
             {"label": "lang-all", "header": "Translations"},
+            {"label": "infra", "header": "Infrastructure"},
             {"label": "internal", "header": "Internal"},
             {"label": "egg", "header": "Easter Eggs"}
           ]
