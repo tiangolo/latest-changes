@@ -41,6 +41,7 @@ inputs:
         {"label": "upgrade", "header": "Upgrades"},
         {"label": "docs", "header": "Docs"},
         {"label": "lang-all", "header": "Translations"},
+        {"label": "infra", "header": "Infrastructure"},
         {"label": "internal", "header": "Internal"}
       ]
   label_header_prefix:
