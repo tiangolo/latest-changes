@@ -304,6 +304,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Features
 
+* ✨ Add new default `infra` label. PR [#79](https://github.com/tiangolo/latest-changes/pull/79) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update GitHub Actions bot user configuration. PR [#78](https://github.com/tiangolo/latest-changes/pull/78) by [@malvex](https://github.com/malvex).
 
 #### Upgrades
