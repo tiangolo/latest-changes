@@ -41,6 +41,7 @@ class Settings(BaseSettings):
         Section(label="upgrade", header="Upgrades"),
         Section(label="docs", header="Docs"),
         Section(label="lang-all", header="Translations"),
+        Section(label="infra", header="Infrastructure"),
         Section(label="internal", header="Internal"),
     ]
     input_label_header_prefix: str = "#### "
