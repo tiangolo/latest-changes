@@ -304,6 +304,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Docs
+
+* 📝 Tweak docs with new label infra. PR [#80](https://github.com/tiangolo/latest-changes/pull/80) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.4.0
 
 #### Features
