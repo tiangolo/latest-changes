@@ -310,6 +310,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆ Bump actions/upload-artifact from 4 to 5. PR [#84](https://github.com/tiangolo/latest-changes/pull/84) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump tiangolo/issue-manager from 0.5.1 to 0.6.0. PR [#83](https://github.com/tiangolo/latest-changes/pull/83) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 4 to 5. PR [#81](https://github.com/tiangolo/latest-changes/pull/81) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
