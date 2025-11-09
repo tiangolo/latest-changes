@@ -308,6 +308,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 * 📝 Tweak docs with new label infra. PR [#80](https://github.com/tiangolo/latest-changes/pull/80) by [@tiangolo](https://github.com/tiangolo).
 
+#### Internal
+
+* ⬆ Bump actions/checkout from 4 to 5. PR [#81](https://github.com/tiangolo/latest-changes/pull/81) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ### 0.4.0
 
 #### Features
