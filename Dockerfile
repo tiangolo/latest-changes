@@ -1,1 +1,1 @@
-FROM tiangolo/latest-changes:0.4.0
+FROM tiangolo/latest-changes:0.4.1
