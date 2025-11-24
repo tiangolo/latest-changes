@@ -17,6 +17,7 @@ COMMIT_MESSAGE = """
 [skip ci]
 """.strip()
 
+
 class Section(BaseModel):
     label: str
     header: str
@@ -231,7 +232,8 @@ def main() -> None:
     logging.info("Setting up GitHub Actions git user")
     subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
     subprocess.run(
-        ["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True
+        ["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"],
+        check=True,
     )
     number_of_trials = 10
     logging.info(f"Number of trials (for race conditions): {number_of_trials}")
@@ -264,5 +266,8 @@ def main() -> None:
         logging.info("That didn't work, resetting before trying again")
         subprocess.run(["git", "reset", "HEAD^1"], check=True)
         subprocess.run(["git", "checkout", "."], check=True)
+    else:
+        logging.error(f"Failed to push changes after {number_of_trials} trials")
+        sys.exit(1)
 
     logging.info("Finished")
