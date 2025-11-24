@@ -304,6 +304,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Fixes
+
+* 🐛 Fix error out when running out of trials. PR [#86](https://github.com/tiangolo/latest-changes/pull/86) by [@tiangolo](https://github.com/tiangolo).
+
 #### Docs
 
 * 📝 Tweak docs with new label infra. PR [#80](https://github.com/tiangolo/latest-changes/pull/80) by [@tiangolo](https://github.com/tiangolo).
