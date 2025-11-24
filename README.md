@@ -30,8 +30,8 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: tiangolo/latest-changes@0.4.0
+      - uses: actions/checkout@v5
+      - uses: tiangolo/latest-changes@0.4.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -64,6 +64,14 @@ You can see an example of how it works in this same file, at the bottom, in [Lat
 * Then it will commit the changes, and push them to your repo. 🚀
 
 As the changes are simply written to a file in your repo, you can later tweak them however you want. You can add links, extend the information, remove irrelevant changes, etc. ✨
+
+## `actions/checkout` version
+
+`actions/checkout@v6` is currently not compatible with this GitHub Action.
+
+You can read more in this issue: https://github.com/actions/checkout/issues/2313
+
+Once that is solved, it will be updated here.
 
 ## Using Labels
 
@@ -165,8 +173,8 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: tiangolo/latest-changes@0.4.0
+    - uses: actions/checkout@v5
+    - uses: tiangolo/latest-changes@0.4.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -243,15 +251,15 @@ You can create a "**Fine-grained token**" with "**Contents**" permissions for "*
 
 Then, in your repository, go to "Settings" -> "Secrets", and [create a new "repository secret"](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Use the access token as the value, and for the name, it could be something like `ACTIONS_TOKEN`. Just remember to use the same name in the configurations shown below.
 
-Then in your configuration, pass that token to the action `actions/checkout@v4`:
+Then in your configuration, pass that token to the action `actions/checkout@v5`:
 
 ```YAML
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
 ```
 
-**Note**: you pass that token to the official `actions/checkout@v4`, not to this `latest-changes` action.
+**Note**: you pass that token to the official `actions/checkout@v5`, not to this `latest-changes` action.
 
 The complete example would look like:
 
@@ -277,17 +285,17 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: tiangolo/latest-changes@0.4.0
+      - uses: tiangolo/latest-changes@0.4.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### How does it work?
 
-By passing the custom access token to the action `actions/checkout@v4`, this action will configure `git` with those credentials.
+By passing the custom access token to the action `actions/checkout@v5`, this action will configure `git` with those credentials.
 
 And then when `latest-changes` runs and executes some commands with `git`, including `git push`, they will be done with your access token.
 
@@ -303,6 +311,8 @@ So, the commits will still be shown as made by `github-actions`.
 ## Release Notes
 
 ### Latest Changes - Latest Changes 🤷
+
+### 0.4.1
 
 #### Fixes
 
