@@ -321,6 +321,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+#### Docs
+
+* 📝 Add permissions needed for private repos. PR [#89](https://github.com/tiangolo/latest-changes/pull/89) by [@tiangolo](https://github.com/tiangolo).
+
 ### 0.4.1
 
 #### Fixes
