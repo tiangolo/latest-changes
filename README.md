@@ -29,6 +29,9 @@ on:
 jobs:
   latest-changes:
     runs-on: ubuntu-latest
+    # Needed for private repos
+    permissions:
+      pull-requests: read
     steps:
       - uses: actions/checkout@v5
       - uses: tiangolo/latest-changes@0.4.1
@@ -172,6 +175,9 @@ on:
 jobs:
   latest-changes:
     runs-on: ubuntu-latest
+    # Needed for private repos
+    permissions:
+      pull-requests: read
     steps:
     - uses: actions/checkout@v5
     - uses: tiangolo/latest-changes@0.4.1
@@ -284,6 +290,9 @@ on:
 jobs:
   latest-changes:
     runs-on: ubuntu-latest
+    # Needed for private repos
+    permissions:
+      pull-requests: read
     steps:
       - uses: actions/checkout@v5
         with:
