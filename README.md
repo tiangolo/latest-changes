@@ -34,7 +34,7 @@ jobs:
       pull-requests: read
     steps:
       - uses: actions/checkout@v5
-      - uses: tiangolo/latest-changes@0.4.1
+      - uses: tiangolo/latest-changes@0.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -62,7 +62,7 @@ It will look something like:
 >
 > * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 
-You can see an example of how it works in this same file, at the bottom, in [Latest Changes - Latest Changes 🤷](##latest-changes---latest-changes-).
+You can see an example of how it works in this same file, at the bottom, in [the release notes](#release-notes).
 
 * Then it will commit the changes, and push them to your repo. 🚀
 
@@ -181,7 +181,7 @@ jobs:
       pull-requests: read
     steps:
     - uses: actions/checkout@v5
-    - uses: tiangolo/latest-changes@0.4.1
+    - uses: tiangolo/latest-changes@0.5.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -301,7 +301,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: tiangolo/latest-changes@0.4.1
+      - uses: tiangolo/latest-changes@0.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -324,6 +324,12 @@ So, the commits will still be shown as made by `github-actions`.
 ## Release Notes
 
 ### Latest Changes - Latest Changes 🤷
+
+### 0.5.0
+
+#### Features
+
+* ✨ Add support for skipping release PRs with `skip_labels`, with `release` skipped by default.
 
 #### Refactors
 
