@@ -8,7 +8,28 @@ from latest_changes.main import (
     TemplateDataPR,
     TemplateDataUser,
     generate_content,
+    should_skip_labels,
 )
+
+
+def test_should_skip_labels():
+    assert should_skip_labels(
+        labels=["release", "internal"],
+        skip_labels=["release"],
+        include_labels=[],
+    )
+
+
+def test_should_not_skip_labels():
+    assert not should_skip_labels(
+        labels=["feature"], skip_labels=["release"], include_labels=[]
+    )
+
+
+def test_should_include_labels_take_precedence_over_skip_labels():
+    assert not should_skip_labels(
+        labels=["release"], skip_labels=["release"], include_labels=["release"]
+    )
 
 
 def test_no_sections():

@@ -34,7 +34,7 @@ jobs:
       pull-requests: read
     steps:
       - uses: actions/checkout@v5
-      - uses: tiangolo/latest-changes@0.4.1
+      - uses: tiangolo/latest-changes@0.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -62,7 +62,7 @@ It will look something like:
 >
 > * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 
-You can see an example of how it works in this same file, at the bottom, in [Latest Changes - Latest Changes 🤷](##latest-changes---latest-changes-).
+You can see an example of how it works in this same file, at the bottom, in [Latest Changes - Latest Changes 🤷](#latest-changes---latest-changes-).
 
 * Then it will commit the changes, and push them to your repo. 🚀
 
@@ -130,6 +130,7 @@ You can configure:
 * `debug_logs`: Set to `'true'` to show logs with the current settings.
 * `labels`: A JSON array of JSON objects with a `label` that you would put in each PR and the `header` that would be used in the release notes. See the example below.
 * `label_header_prefix`: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `#### `, so the headers will look like `#### Features`.
+* `skip_labels`: A JSON array of label names for PRs that should not be added to the latest changes. By default, this is `["release"]`. If the same label is configured in `labels`, the `labels` configuration takes precedence and the PR is still added.
 
 ### Configuring Labels
 
@@ -180,7 +181,7 @@ jobs:
       pull-requests: read
     steps:
     - uses: actions/checkout@v5
-    - uses: tiangolo/latest-changes@0.4.1
+    - uses: tiangolo/latest-changes@0.5.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -209,6 +210,9 @@ jobs:
         # This will be added to the start of each label's header and
         # will be used to detect existing label headers
         label_header_prefix: '### '
+        # PRs with any of these labels won't be added to the latest changes
+        # By default, this is ["release"]
+        skip_labels: '["release"]'
 ```
 
 In this custom config:
@@ -297,7 +301,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: tiangolo/latest-changes@0.4.1
+      - uses: tiangolo/latest-changes@0.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -320,6 +324,12 @@ So, the commits will still be shown as made by `github-actions`.
 ## Release Notes
 
 ### Latest Changes - Latest Changes 🤷
+
+### 0.5.0
+
+#### Features
+
+* ✨ Add support for skipping release PRs with `skip_labels`, with `release` skipped by default.
 
 #### Refactors
 
