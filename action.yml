@@ -47,6 +47,10 @@ inputs:
   label_header_prefix:
     description: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `#### `, so the headers will look like `#### Features`.
     default: '#### '
+  skip_labels:
+    description: A JSON array of label names for PRs that should not be added to the latest changes. If a label is also configured in labels, labels takes precedence.
+    required: false
+    default: '["release"]'
 runs:
   using: docker
   image: Dockerfile

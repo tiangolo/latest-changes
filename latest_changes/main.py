@@ -46,6 +46,7 @@ class Settings(BaseSettings):
         Section(label="internal", header="Internal"),
     ]
     input_label_header_prefix: str = "#### "
+    input_skip_labels: List[str] = ["release"]
 
 
 class PartialGitHubEventInputs(BaseModel):
@@ -77,6 +78,13 @@ class SectionContent(BaseModel):
 
 
 logging.basicConfig(level=logging.INFO)
+
+
+def should_skip_labels(
+    *, labels: list[str], skip_labels: list[str], include_labels: list[str]
+) -> bool:
+    effective_skip_labels = set(skip_labels) - set(include_labels)
+    return bool(set(labels) & effective_skip_labels)
 
 
 def generate_content(
@@ -223,6 +231,16 @@ def main() -> None:
     if not pr.merged:
         logging.info("The PR was not merged, nothing else to do.")
         sys.exit(0)
+    pr_labels = [label.name for label in pr.labels]
+    if should_skip_labels(
+        labels=pr_labels,
+        skip_labels=settings.input_skip_labels,
+        include_labels=[label.label for label in settings.input_labels],
+    ):
+        logging.info(
+            f"The PR has a label configured to skip latest changes: {settings.input_skip_labels}"
+        )
+        sys.exit(0)
     if not settings.input_latest_changes_file.is_file():
         logging.error(
             f"The latest changes files doesn't seem to exist: {settings.input_latest_changes_file}"
@@ -249,7 +267,7 @@ def main() -> None:
             content=content,
             settings=settings,
             pr=pr,
-            labels=[label.name for label in pr.labels],
+            labels=pr_labels,
         )
         settings.input_latest_changes_file.write_text(new_content)
         logging.info(f"Committing changes to: {settings.input_latest_changes_file}")

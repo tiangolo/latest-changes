@@ -130,6 +130,7 @@ You can configure:
 * `debug_logs`: Set to `'true'` to show logs with the current settings.
 * `labels`: A JSON array of JSON objects with a `label` that you would put in each PR and the `header` that would be used in the release notes. See the example below.
 * `label_header_prefix`: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `#### `, so the headers will look like `#### Features`.
+* `skip_labels`: A JSON array of label names for PRs that should not be added to the latest changes. By default, this is `["release"]`. If the same label is configured in `labels`, the `labels` configuration takes precedence and the PR is still added.
 
 ### Configuring Labels
 
@@ -209,6 +210,9 @@ jobs:
         # This will be added to the start of each label's header and
         # will be used to detect existing label headers
         label_header_prefix: '### '
+        # PRs with any of these labels won't be added to the latest changes
+        # By default, this is ["release"]
+        skip_labels: '["release"]'
 ```
 
 In this custom config:
