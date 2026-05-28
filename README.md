@@ -327,6 +327,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 * 👷 Update Dependabot. PR [#92](https://github.com/tiangolo/latest-changes/pull/92) by [@tiangolo](https://github.com/tiangolo).
 
+#### Features
+
+* ✨ Add support for skip labels, useful for making a PR with the actual release. PR [#96](https://github.com/tiangolo/latest-changes/pull/96) by [@tiangolo](https://github.com/tiangolo).
+
 #### Internal
 
 * 🔥 Remove config files now in central GitHub repo. PR [#95](https://github.com/tiangolo/latest-changes/pull/95) by [@tiangolo](https://github.com/tiangolo).
