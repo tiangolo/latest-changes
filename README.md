@@ -62,7 +62,7 @@ It will look something like:
 >
 > * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 
-You can see an example of how it works in this same file, at the bottom, in [the release notes](#release-notes).
+You can see an example of how it works in this same file, at the bottom, in [Latest Changes - Latest Changes 🤷](#latest-changes---latest-changes-).
 
 * Then it will commit the changes, and push them to your repo. 🚀
 
