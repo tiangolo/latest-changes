@@ -325,6 +325,8 @@ So, the commits will still be shown as made by `github-actions`.
 
 ### Latest Changes - Latest Changes 🤷
 
+* 👷 Update Dependabot. PR [#92](https://github.com/tiangolo/latest-changes/pull/92) by [@tiangolo](https://github.com/tiangolo).
+
 #### Internal
 
 * 👷 Tweak permissions for latest-changes action. PR [#98](https://github.com/tiangolo/latest-changes/pull/98) by [@tiangolo](https://github.com/tiangolo).
