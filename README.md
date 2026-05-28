@@ -329,6 +329,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆ Bump the github-actions group across 1 directory with 6 updates. PR [#93](https://github.com/tiangolo/latest-changes/pull/93) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Tweak permissions for latest-changes action. PR [#98](https://github.com/tiangolo/latest-changes/pull/98) by [@tiangolo](https://github.com/tiangolo).
 
 ### 0.5.0
