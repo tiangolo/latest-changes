@@ -12,6 +12,10 @@ on:
         description: PR number
         required: true
 
+permissions:
+  contents: write
+  pull-requests: read
+
 jobs:
   latest-changes:
     runs-on: ubuntu-latest
