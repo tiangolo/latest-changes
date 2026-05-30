@@ -103,6 +103,12 @@ So, if you have a PR with a label `feature`, by default, it will show up in the 
 
 You can configure the labels and headers used in the GitHub Action `labels` workflow configuration, and you can configure the header prefix, by default `#### `.
 
+You can also configure labels that should be skipped, those PRs won't be added to the release notes.
+
+By default, these labels will be skipped:
+
+* `release`
+
 Read more about it in the section about configuration.
 
 ## Existing PRs - Running Manually
