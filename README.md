@@ -337,6 +337,10 @@ So, the commits will still be shown as made by `github-actions`.
 
 * ✨ Add support for skip labels, useful for making a PR with the actual release. PR [#96](https://github.com/tiangolo/latest-changes/pull/96) by [@tiangolo](https://github.com/tiangolo).
 
+#### Docs
+
+* 📝 Add docs explaining skip labels. PR [#99](https://github.com/tiangolo/latest-changes/pull/99) by [@tiangolo](https://github.com/tiangolo).
+
 #### Internal
 
 * 👷 Add workflow dispatch to publish the Docker image. PR [#97](https://github.com/tiangolo/latest-changes/pull/97) by [@tiangolo](https://github.com/tiangolo).
