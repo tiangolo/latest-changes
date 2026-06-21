@@ -343,6 +343,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆️ Group Dependabot updates. PR [#105](https://github.com/tiangolo/latest-changes/pull/105) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update Dependabot ecosystem coverage. PR [#102](https://github.com/tiangolo/latest-changes/pull/102) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump docker/login-action from 4.1.0 to 4.2.0 in the github-actions group across 1 directory. PR [#101](https://github.com/tiangolo/latest-changes/pull/101) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add workflow dispatch to publish the Docker image. PR [#97](https://github.com/tiangolo/latest-changes/pull/97) by [@tiangolo](https://github.com/tiangolo).
