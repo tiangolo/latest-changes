@@ -1,7 +1,7 @@
 name: Latest Changes
 
 on:
-  pull_request_target:
+  pull_request_target: # zizmor: ignore[dangerous-triggers]
     branches:
       - main
     types:
@@ -20,12 +20,14 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: true # required by local latest-changes action
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: tiangolo/latest-changes@main
+      - uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           latest_changes_header: '### Latest Changes - Latest Changes 🤷'
