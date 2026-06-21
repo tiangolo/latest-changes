@@ -42,3 +42,7 @@ updates:
       default-days: 7
     commit-message:
       prefix: ⬆
+    groups:
+      docker-images:
+        patterns:
+          - "*"
