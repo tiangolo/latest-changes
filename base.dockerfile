@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.14.6-slim
 
 # Slim doesn't have git, install it manually
 RUN apt-get update && apt-get install -y \
