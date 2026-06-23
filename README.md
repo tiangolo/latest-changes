@@ -343,6 +343,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ⬆️ Update issue-manager to 0.7.0. PR [#108](https://github.com/tiangolo/latest-changes/pull/108) by [@tiangolo](https://github.com/tiangolo).
 * 🔒️ Add zizmor workflow security checks. PR [#106](https://github.com/tiangolo/latest-changes/pull/106) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Group Dependabot updates. PR [#105](https://github.com/tiangolo/latest-changes/pull/105) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update Dependabot ecosystem coverage. PR [#102](https://github.com/tiangolo/latest-changes/pull/102) by [@tiangolo](https://github.com/tiangolo).
