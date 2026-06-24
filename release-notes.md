@@ -18,6 +18,7 @@
 
 ### Internal
 
+* 👷 Update setup-python pin comment to 6.2.0. PR [#114](https://github.com/tiangolo/latest-changes/pull/114) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add CI to automate release process. PR [#115](https://github.com/tiangolo/latest-changes/pull/115) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Refactor release notes, move to its own file. PR [#112](https://github.com/tiangolo/latest-changes/pull/112) by [@tiangolo](https://github.com/tiangolo).
 * ♻️ Migrate from plain pip to uv. PR [#110](https://github.com/tiangolo/latest-changes/pull/110) by [@tiangolo](https://github.com/tiangolo).
