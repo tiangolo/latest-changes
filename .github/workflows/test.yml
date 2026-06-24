@@ -32,25 +32,23 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
         with:
-          python-version: "3.10"
+          python-version-file: ".python-version"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
+        with:
+          version: "0.9.11"
       # Allow debugging with tmate
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@35b54afac29c97fb54faba5b513f8fbd1882f113 # v3
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled == 'true' }}
         with:
           limit-access-to-actor: true
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
-        id: cache
-        with:
-          path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('requirements.txt', 'requirements-test.txt') }}-v0
       - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: python -m pip install -r requirements-test.txt
+        run: uv sync --locked
       - run: mkdir coverage
       - name: Test
-        run: bash scripts/test.sh
-      - run: coverage html --show-contexts --title "Coverage for ${{ github.sha }}"
+        run: uv run bash scripts/test.sh
+      - run: uv run coverage html --show-contexts --title "Coverage for ${{ github.sha }}"
 
       - name: Store coverage HTML
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
