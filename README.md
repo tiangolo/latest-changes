@@ -343,6 +343,7 @@ So, the commits will still be shown as made by `github-actions`.
 
 #### Internal
 
+* ♻️ Migrate from plain pip to uv. PR [#110](https://github.com/tiangolo/latest-changes/pull/110) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue-manager to 0.7.1. PR [#109](https://github.com/tiangolo/latest-changes/pull/109) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update issue-manager to 0.7.0. PR [#108](https://github.com/tiangolo/latest-changes/pull/108) by [@tiangolo](https://github.com/tiangolo).
 * 🔒️ Add zizmor workflow security checks. PR [#106](https://github.com/tiangolo/latest-changes/pull/106) by [@tiangolo](https://github.com/tiangolo).
