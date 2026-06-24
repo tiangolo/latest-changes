@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.6.0 (2026-06-24)
+
 * 👷 Update Dependabot. PR [#92](https://github.com/tiangolo/latest-changes/pull/92) by [@tiangolo](https://github.com/tiangolo).
 
 ### Features

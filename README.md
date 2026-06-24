@@ -34,7 +34,7 @@ jobs:
       pull-requests: read
     steps:
       - uses: actions/checkout@v5
-      - uses: tiangolo/latest-changes@0.5.0
+      - uses: tiangolo/latest-changes@0.6.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -187,7 +187,7 @@ jobs:
       pull-requests: read
     steps:
     - uses: actions/checkout@v5
-    - uses: tiangolo/latest-changes@0.5.0
+    - uses: tiangolo/latest-changes@0.6.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -307,7 +307,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           token: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: tiangolo/latest-changes@0.5.0
+      - uses: tiangolo/latest-changes@0.6.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
