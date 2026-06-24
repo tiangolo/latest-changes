@@ -8,6 +8,10 @@
 
 * ✨ Add support for skip labels, useful for making a PR with the actual release. PR [#96](https://github.com/tiangolo/latest-changes/pull/96) by [@tiangolo](https://github.com/tiangolo).
 
+### Refactors
+
+* ♻️ Refactor main Dockerfile to contain all logic, cache by uv. PR [#113](https://github.com/tiangolo/latest-changes/pull/113) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 📝 Add docs explaining skip labels. PR [#99](https://github.com/tiangolo/latest-changes/pull/99) by [@tiangolo](https://github.com/tiangolo).
