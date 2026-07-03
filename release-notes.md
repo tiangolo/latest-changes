@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.6.1 (2026-07-03)
+
 ### Fixes
 
 * 🐛 Run action on its baked-in Python instead of `uv run`. PR [#121](https://github.com/tiangolo/latest-changes/pull/121) by [@YuriiMotov](https://github.com/YuriiMotov).
