@@ -18,6 +18,10 @@ RUN uv sync --locked
 
 COPY ./latest_changes /app/latest_changes
 
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app \
+    PATH="/app/.venv/bin:$PATH"
 
-CMD ["uv", "run", "python", "-m", "latest_changes"]
+# Put the image's baked-in venv first on PATH. `uv run` would execute in the
+# mounted consumer repo and pick up its `.python-version`, provisioning a Python
+# we don't ship.
+CMD ["python", "-m", "latest_changes"]
