@@ -8,6 +8,7 @@
 
 ### Internal
 
+* 🔧 Set Dependabot schedule interval to "monthly". PR [#119](https://github.com/tiangolo/latest-changes/pull/119) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 👷 Simplify pull request workflow triggers. PR [#118](https://github.com/tiangolo/latest-changes/pull/118) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.6.0 (2026-06-24)
