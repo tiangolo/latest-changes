@@ -68,14 +68,6 @@ You can see an example of how it works in [release-notes.md](release-notes.md).
 
 As the changes are simply written to a file in your repo, you can later tweak them however you want. You can add links, extend the information, remove irrelevant changes, etc. ✨
 
-## `actions/checkout` version
-
-`actions/checkout@v6` is currently not compatible with this GitHub Action.
-
-You can read more in this issue: https://github.com/actions/checkout/issues/2313
-
-Once that is solved, it will be updated here.
-
 ## Using Labels
 
 You can also use labels in the PRs to configure which sections they should show up in the release notes.
