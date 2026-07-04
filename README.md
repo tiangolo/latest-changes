@@ -33,13 +33,17 @@ jobs:
     permissions:
       pull-requests: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
       - uses: tiangolo/latest-changes@0.6.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 In this minimal example, it uses all the default configurations.
+
+The `ref` in `actions/checkout` makes the workflow check out the trusted default branch for the base repository. This is needed because `pull_request_target` workflows can run with repository secrets after a PR is merged, and `actions/checkout@v7` blocks fork PR code by default in that trusted context.
 
 After merging a PR to the main branch, it will:
 
@@ -178,7 +182,9 @@ jobs:
     permissions:
       pull-requests: read
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
+      with:
+        ref: ${{ github.event.repository.default_branch }}
     - uses: tiangolo/latest-changes@0.6.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -257,17 +263,18 @@ You need to create a new GitHub access token. For example, a [personal access to
 
 You can create a "**Fine-grained token**" with "**Contents**" permissions for "**Read and write**" access.
 
-Then, in your repository, go to "Settings" -> "Secrets", and [create a new "repository secret"](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Use the access token as the value, and for the name, it could be something like `ACTIONS_TOKEN`. Just remember to use the same name in the configurations shown below.
+Then, in your repository, go to "Settings" -> "Secrets", and [create a new "repository secret"](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Use the access token as the value, and for the name, it could be something like `LATEST_CHANGES_TOKEN`. Just remember to use the same name in the configurations shown below.
 
-Then in your configuration, pass that token to the action `actions/checkout@v5`:
+Then in your configuration, pass that token to the action `actions/checkout@v7`:
 
 ```YAML
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.ACTIONS_TOKEN }}
+          ref: ${{ github.event.repository.default_branch }}
+          token: ${{ secrets.LATEST_CHANGES_TOKEN }}
 ```
 
-**Note**: you pass that token to the official `actions/checkout@v5`, not to this `latest-changes` action.
+**Note**: you pass that token to the official `actions/checkout@v7`, not to this `latest-changes` action.
 
 The complete example would look like:
 
@@ -296,9 +303,10 @@ jobs:
     permissions:
       pull-requests: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.ACTIONS_TOKEN }}
+          ref: ${{ github.event.repository.default_branch }}
+          token: ${{ secrets.LATEST_CHANGES_TOKEN }}
       - uses: tiangolo/latest-changes@0.6.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -306,7 +314,7 @@ jobs:
 
 ### How does it work?
 
-By passing the custom access token to the action `actions/checkout@v5`, this action will configure `git` with those credentials.
+By passing the custom access token to the action `actions/checkout@v7`, this action will configure `git` with those credentials.
 
 And then when `latest-changes` runs and executes some commands with `git`, including `git push`, they will be done with your access token.
 
