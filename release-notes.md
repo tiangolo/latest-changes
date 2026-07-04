@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 📝 Update README with reference to checkout action. PR [#126](https://github.com/tiangolo/latest-changes/pull/126) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update README, remove old note. PR [#125](https://github.com/tiangolo/latest-changes/pull/125) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
