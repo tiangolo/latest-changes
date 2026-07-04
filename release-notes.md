@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Update README, remove old note. PR [#125](https://github.com/tiangolo/latest-changes/pull/125) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆️ Update issue-manager to 0.8.1. PR [#123](https://github.com/tiangolo/latest-changes/pull/123) by [@tiangolo](https://github.com/tiangolo).
