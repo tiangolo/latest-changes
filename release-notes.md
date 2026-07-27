@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add automatic release notes file discovery, default to `release-notes.md`. PR [#128](https://github.com/tiangolo/latest-changes/pull/128) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 📝 Update README with reference to checkout action. PR [#126](https://github.com/tiangolo/latest-changes/pull/126) by [@tiangolo](https://github.com/tiangolo).
