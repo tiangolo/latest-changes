@@ -47,7 +47,10 @@ The `ref` in `actions/checkout` makes the workflow check out the trusted default
 
 After merging a PR to the main branch, it will:
 
-* Find a file `README.md`
+* Find the first `release-notes.md` file in one of these locations:
+    * `release-notes.md`
+    * `docs/release-notes.md`
+    * `docs/en/docs/release-notes.md`
 * Inside of that file, find a "header" with the text:
 
 ```Markdown
@@ -125,7 +128,7 @@ So, in those cases, it won't do everything automatically, you will have to manua
 
 You can configure:
 
-* `latest_changes_file`: The file to modify with the latest changes. For example: `./docs/latest-changes.rst`.
+* `latest_changes_file`: The file to modify with the latest changes. By default, the action searches for `release-notes.md`, `docs/release-notes.md`, and `docs/en/docs/release-notes.md`, in that order. For example, you can override it with `./docs/latest-changes.rst`.
 * `latest_changes_header`: The header to look for before adding a new message. for example: `# CHANGELOG`.
 * `template_file`: A custom Jinja2 template file to use to generate the message, you could use this to generate a different message or to use a different format, for example, HTML instead of the default Markdown.
 * `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `. This is used to limit the content updated as this will read the existing sub sections and possibly update them using the labels configuration and the labels in the PR. By default it is `(^### .*)|(^## .*)` to detect a possible next header, e.g. for the license.
@@ -222,7 +225,7 @@ jobs:
 In this custom config:
 
 * The main branch is `master` instead of `main`.
-* It modifies the file `docs/release-notes.md` instead of the default `README.md`.
+* It explicitly selects the file `docs/release-notes.md` instead of using automatic discovery.
 * It looks for a header in that file with:
 
 ```Markdown

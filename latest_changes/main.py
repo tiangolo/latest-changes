@@ -9,13 +9,19 @@ from github import Github
 from github.PullRequest import PullRequest
 from jinja2 import Template
 from pydantic import BaseModel, SecretStr
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 COMMIT_MESSAGE = """
 📝 Update release notes
 
 [skip ci]
 """.strip()
+
+DEFAULT_LATEST_CHANGES_FILES = (
+    Path("release-notes.md"),
+    Path("docs/release-notes.md"),
+    Path("docs/en/docs/release-notes.md"),
+)
 
 
 class Section(BaseModel):
@@ -24,11 +30,13 @@ class Section(BaseModel):
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_ignore_empty=True)
+
     github_repository: str
     github_event_path: Path
     github_event_name: Optional[str] = None
     input_token: SecretStr
-    input_latest_changes_file: Path = Path("README.md")
+    input_latest_changes_file: Optional[Path] = None
     input_latest_changes_header: str = "### Latest Changes"
     input_template_file: Path = Path(__file__).parent / "latest-changes.jinja2"
     input_end_regex: str = "(^### .*)|(^## .*)"
@@ -78,6 +86,18 @@ class SectionContent(BaseModel):
 
 
 logging.basicConfig(level=logging.INFO)
+
+
+def find_latest_changes_file(settings: Settings) -> Path:
+    if settings.input_latest_changes_file is not None:
+        return settings.input_latest_changes_file
+    for path in DEFAULT_LATEST_CHANGES_FILES:
+        if path.is_file():
+            return path
+    searched_files = ", ".join(str(path) for path in DEFAULT_LATEST_CHANGES_FILES)
+    raise RuntimeError(
+        f"No latest changes file was found. Searched for: {searched_files}"
+    )
 
 
 def should_skip_labels(
@@ -208,6 +228,11 @@ def main() -> None:
     dotgitconfig_path.write_text(safe_directory_config_content)
 
     settings = Settings()
+    try:
+        latest_changes_file = find_latest_changes_file(settings)
+    except RuntimeError as error:
+        logging.error(str(error))
+        sys.exit(1)
     if settings.input_debug_logs:
         logging.info(f"Using config: {settings.json()}")
     g = Github(settings.input_token.get_secret_value())
@@ -241,9 +266,9 @@ def main() -> None:
             f"The PR has a label configured to skip latest changes: {settings.input_skip_labels}"
         )
         sys.exit(0)
-    if not settings.input_latest_changes_file.is_file():
+    if not latest_changes_file.is_file():
         logging.error(
-            f"The latest changes files doesn't seem to exist: {settings.input_latest_changes_file}"
+            f"The latest changes files doesn't seem to exist: {latest_changes_file}"
         )
         sys.exit(1)
 
@@ -261,7 +286,7 @@ def main() -> None:
             "Pulling the latest changes, including the latest merged PR (this one)"
         )
         subprocess.run(["git", "pull"], check=True)
-        content = settings.input_latest_changes_file.read_text()
+        content = latest_changes_file.read_text()
 
         new_content = generate_content(
             content=content,
@@ -269,13 +294,11 @@ def main() -> None:
             pr=pr,
             labels=pr_labels,
         )
-        settings.input_latest_changes_file.write_text(new_content)
-        logging.info(f"Committing changes to: {settings.input_latest_changes_file}")
-        subprocess.run(
-            ["git", "add", str(settings.input_latest_changes_file)], check=True
-        )
+        latest_changes_file.write_text(new_content)
+        logging.info(f"Committing changes to: {latest_changes_file}")
+        subprocess.run(["git", "add", str(latest_changes_file)], check=True)
         subprocess.run(["git", "commit", "-m", COMMIT_MESSAGE], check=True)
-        logging.info(f"Pushing changes: {settings.input_latest_changes_file}")
+        logging.info(f"Pushing changes: {latest_changes_file}")
 
         result = subprocess.run(["git", "push"])
         if result.returncode == 0:
