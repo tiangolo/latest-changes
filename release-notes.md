@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.7.0 (2026-07-27)
+
 ### Features
 
 * ✨ Add automatic release notes file discovery, default to `release-notes.md`. PR [#128](https://github.com/tiangolo/latest-changes/pull/128) by [@tiangolo](https://github.com/tiangolo).
