@@ -54,7 +54,7 @@ After merging a PR to the main branch, it will:
 * Inside of that file, find a "header" with the text:
 
 ```Markdown
-### Latest Changes
+## Latest Changes
 ```
 
 * Right after that, it will add a new list item with the changes:
@@ -65,7 +65,7 @@ After merging a PR to the main branch, it will:
 
 It will look something like:
 
-> ### Latest Changes
+> ## Latest Changes
 >
 > * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 
@@ -94,13 +94,13 @@ By default, it will use these labels and headers:
 
 So, if you have a PR with a label `feature`, by default, it will show up in the section about features, like:
 
-> ### Latest Changes
+> ## Latest Changes
 >
-> #### Features
+> ### Features
 >
 > * ✨ Add support for Jinja2 templates for latest changes messages. PR [#23](https://github.com/tiangolo/latest-changes/pull/23) by [@tiangolo](https://github.com/tiangolo).
 
-You can configure the labels and headers used in the GitHub Action `labels` workflow configuration, and you can configure the header prefix, by default `#### `.
+You can configure the labels and headers used in the GitHub Action `labels` workflow configuration, and you can configure the header prefix, by default `### `.
 
 You can also configure labels that should be skipped, those PRs won't be added to the release notes.
 
@@ -131,10 +131,10 @@ You can configure:
 * `latest_changes_file`: The file to modify with the latest changes. By default, the action searches for `release-notes.md`, `docs/release-notes.md`, and `docs/en/docs/release-notes.md`, in that order. For example, you can override it with `./docs/latest-changes.rst`.
 * `latest_changes_header`: The header to look for before adding a new message. for example: `# CHANGELOG`.
 * `template_file`: A custom Jinja2 template file to use to generate the message, you could use this to generate a different message or to use a different format, for example, HTML instead of the default Markdown.
-* `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `. This is used to limit the content updated as this will read the existing sub sections and possibly update them using the labels configuration and the labels in the PR. By default it is `(^### .*)|(^## .*)` to detect a possible next header, e.g. for the license.
+* `end_regex`: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, at the same header level as `latest_changes_header`. By default it is `^## `, matching a release header such as `## 0.2.0`.
 * `debug_logs`: Set to `'true'` to show logs with the current settings.
 * `labels`: A JSON array of JSON objects with a `label` that you would put in each PR and the `header` that would be used in the release notes. See the example below.
-* `label_header_prefix`: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `#### `, so the headers will look like `#### Features`.
+* `label_header_prefix`: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `### `, so the headers will look like `### Features`.
 * `skip_labels`: A JSON array of label names for PRs that should not be added to the latest changes. By default, this is `["release"]`. If the same label is configured in `labels`, the `labels` configuration takes precedence and the PR is still added.
 
 ### Configuring Labels
@@ -198,7 +198,7 @@ jobs:
         end_regex: '^## '
         debug_logs: true
         # Here we use a yaml multiline string to pass a JSON array of JSON objects in a more readable way
-        # In these case we use the same default labels and the same header titles, but the headers use 3 hash symbols instead of the default of 4
+        # In this case we use the same default labels and header titles, but the headers use 4 hash symbols instead of the default of 3
         # We also add a custom last label "egg" for PRs with easter eggs.
         labels: >
           [
@@ -216,7 +216,7 @@ jobs:
           ]
         # This will be added to the start of each label's header and
         # will be used to detect existing label headers
-        label_header_prefix: '### '
+        label_header_prefix: '#### '
         # PRs with any of these labels won't be added to the latest changes
         # By default, this is ["release"]
         skip_labels: '["release"]'
@@ -254,7 +254,7 @@ And that Markdown will be shown like:
 
 * It will use the same default labels and headers plus another one for easter eggs.
 
-* It will show those section headers from labels with 3 hash symbols instead of the default of 4. And it will also find any existing header checking for that prefix (it will use a regular expression like `^### `).
+* It will show those section headers from labels with 4 hash symbols instead of the default of 3. And it will also find any existing header checking for that prefix (it will use a regular expression like `^#### `).
 
 ## Protected Branches
 

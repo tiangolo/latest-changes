@@ -37,9 +37,9 @@ class Settings(BaseSettings):
     github_event_name: Optional[str] = None
     input_token: SecretStr
     input_latest_changes_file: Optional[Path] = None
-    input_latest_changes_header: str = "### Latest Changes"
+    input_latest_changes_header: str = "## Latest Changes"
     input_template_file: Path = Path(__file__).parent / "latest-changes.jinja2"
-    input_end_regex: str = "(^### .*)|(^## .*)"
+    input_end_regex: str = "^## "
     input_debug_logs: Optional[bool] = False
     input_labels: List[Section] = [
         Section(label="breaking", header="Breaking Changes"),
@@ -53,7 +53,7 @@ class Settings(BaseSettings):
         Section(label="infra", header="Infrastructure"),
         Section(label="internal", header="Internal"),
     ]
-    input_label_header_prefix: str = "#### "
+    input_label_header_prefix: str = "### "
     input_skip_labels: List[str] = ["release"]
 
 
