@@ -100,6 +100,18 @@ def test_empty_latest_changes_file_is_none(monkeypatch):
     assert settings.input_latest_changes_file is None
 
 
+def test_standalone_release_notes_defaults():
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+    )
+
+    assert settings.input_latest_changes_header == "## Latest Changes"
+    assert settings.input_end_regex == "^## "
+    assert settings.input_label_header_prefix == "### "
+
+
 def test_should_skip_labels():
     assert should_skip_labels(
         labels=["release", "internal"],
@@ -122,15 +134,15 @@ def test_should_include_labels_take_precedence_over_skip_labels():
 
 def test_no_sections():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     * 📝 Add docs. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -153,16 +165,16 @@ def test_no_sections():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     * 📝 Add docs. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -174,11 +186,11 @@ def test_no_sections():
 
 def test_before_release():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -201,13 +213,13 @@ def test_before_release():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
 
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -219,15 +231,15 @@ def test_before_release():
 
 def test_existing_labels_no_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -250,17 +262,17 @@ def test_existing_labels_no_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Features
+    ### Features
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -272,15 +284,15 @@ def test_existing_labels_no_label():
 
 def test_existing_labels_same_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -305,16 +317,16 @@ def test_existing_labels_same_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -326,15 +338,15 @@ def test_existing_labels_same_label():
 
 def test_existing_label_other_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Fixes
+    ### Fixes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -359,19 +371,19 @@ def test_existing_label_other_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -383,15 +395,15 @@ def test_existing_label_other_label():
 
 def test_existing_label_secondary_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -416,19 +428,19 @@ def test_existing_label_secondary_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -440,13 +452,13 @@ def test_existing_label_secondary_label():
 
 def test_no_existing_label_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -471,17 +483,17 @@ def test_no_existing_label_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -493,15 +505,15 @@ def test_no_existing_label_label():
 
 def test_no_existing_label_release_label_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
-    #### Features
+    ### Features
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -526,19 +538,19 @@ def test_no_existing_label_release_label_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
-    #### Features
+    ### Features
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -550,15 +562,15 @@ def test_no_existing_label_release_label_label():
 
 def test_custom_label_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Custom
+    ### Custom
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -583,19 +595,19 @@ def test_custom_label_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Custom
+    ### Custom
     
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -607,17 +619,17 @@ def test_custom_label_label():
 
 def test_sectionless_content_label():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -642,21 +654,21 @@ def test_sectionless_content_label():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -668,7 +680,7 @@ def test_sectionless_content_label():
 
 def test_content_above_latest_changes():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
     Here's some content.
 
@@ -676,19 +688,19 @@ def test_content_above_latest_changes():
 
     * Here's a list.
 
-    #### Features
+    ### Features
 
     These are not release notes.
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -713,7 +725,7 @@ def test_content_above_latest_changes():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
     Here's some content.
 
@@ -721,23 +733,23 @@ def test_content_above_latest_changes():
 
     * Here's a list.
 
-    #### Features
+    ### Features
 
     These are not release notes.
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -749,15 +761,15 @@ def test_content_above_latest_changes():
 
 def test_multiple_labels():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Fixes
+    ### Fixes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -782,19 +794,19 @@ def test_multiple_labels():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -806,7 +818,7 @@ def test_multiple_labels():
 
 def test_no_latest_changes_raises():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
     Here's some content.
 
@@ -814,17 +826,17 @@ def test_no_latest_changes_raises():
 
     * Here's a list.
 
-    #### Features
+    ### Features
 
     These are not release notes.
 
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
 
-    #### Fixes
+    ### Fixes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -848,16 +860,16 @@ def test_no_latest_changes_raises():
 
 def test_changes_exist_raises():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     * 📝 Add docs. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
     
-    ### 0.0.3
+    ## 0.0.3
 
     * 🚚 Update Python module name. PR [#37](https://github.com/tiangolo/latest-changes/pull/37) by [@tiangolo](https://github.com/tiangolo).
     * 🐛 Fix default Jinja2 path. PR [#38](https://github.com/tiangolo/latest-changes/pull/38) by [@tiangolo](https://github.com/tiangolo).
@@ -1158,9 +1170,9 @@ def test_multiple_header_sections_label():
 
 def test_first_change_with_extra_header():
     raw_content = """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
     ## License
 
@@ -1186,11 +1198,11 @@ def test_first_change_with_extra_header():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Notes
+    # Release Notes
 
-    ### Latest Changes
+    ## Latest Changes
 
-    #### Features
+    ### Features
 
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
 
@@ -1205,17 +1217,17 @@ def test_first_change_with_extra_header():
 
 def test_first_release_existing_content_with_extra_header():
     raw_content = """
-    ## Release Note
+    # Release Note
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     
-    #### Features
+    ### Features
     
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    #### Docs
+    ### Docs
     
     * 📝 Add docs. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
 
@@ -1243,18 +1255,18 @@ def test_first_release_existing_content_with_extra_header():
         new_content
         == inspect.cleandoc(
             """
-    ## Release Note
+    # Release Note
 
-    ### Latest Changes
+    ## Latest Changes
 
     * 🔥 Remove config. PR [#47](https://github.com/tiangolo/latest-changes/pull/47) by [@tiangolo](https://github.com/tiangolo).
     
-    #### Features
+    ### Features
     
     * Demo PR. PR [#42](https://example.com/pr/42) by [@tiangolo](https://github.com/tiangolo).
     * 🚀 Publish amd64 and arm64 versions. PR [#46](https://github.com/tiangolo/latest-changes/pull/46) by [@tiangolo](https://github.com/tiangolo).
     
-    #### Docs
+    ### Docs
     
     * 📝 Add docs. PR [#43](https://github.com/tiangolo/latest-changes/pull/43) by [@tiangolo](https://github.com/tiangolo).
 

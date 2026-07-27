@@ -13,15 +13,15 @@ inputs:
     required: false
   latest_changes_header:
     description: Header to search for in the latest changes file, this action will add the changes right after that string.
-    default: '### Latest Changes'
+    default: '## Latest Changes'
     required: false
   template_file:
     description: To override the default message with a custom Jinja2 template, use a path relative to the repo.
     required: false
     default: /app/latest_changes/latest-changes.jinja2
   end_regex:
-    description: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `### Latest Changes`, the content for the next release below is probably something like `### 0.2.0`, then the `end_regex` should be `^### `. By default it is `(^### .*)|(^## .*)` to detect a possible next header, e.g. for the license.
-    default: '(^### .*)|(^## .*)'
+    description: A RegEx string that marks the end of this release, so it normally matches the start of the header of the next release section, normally the same header level as `latest_changes_header`, so, if the `latest_changes_header` is `## Latest Changes`, the content for the next release below is probably something like `## 0.2.0`, then the `end_regex` should be `^## `.
+    default: '^## '
     required: false
   debug_logs:
     description: Use debug=True to enable more logging, useful to see the object shape for custom Jinja2 templates
@@ -44,8 +44,8 @@ inputs:
         {"label": "internal", "header": "Internal"}
       ]
   label_header_prefix:
-    description: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `#### `, so the headers will look like `#### Features`.
-    default: '#### '
+    description: A prefix to put before each label's header. This is also used to detect where the next label header starts. By default it is `### `, so the headers will look like `### Features`.
+    default: '### '
   skip_labels:
     description: A JSON array of label names for PRs that should not be added to the latest changes. If a label is also configured in labels, labels takes precedence.
     required: false
