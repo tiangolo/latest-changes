@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.7.1 (2026-07-27)
+
 ### Fixes
 
 * 🐛 Align defaults with standalone release notes. PR [#131](https://github.com/tiangolo/latest-changes/pull/131) by [@tiangolo](https://github.com/tiangolo).
