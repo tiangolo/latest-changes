@@ -13,6 +13,7 @@
 
 ### Internal
 
+* 👷 Fix checkout version annotations. PR [#129](https://github.com/tiangolo/latest-changes/pull/129) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Fix latest-changes checkout target. PR [#127](https://github.com/tiangolo/latest-changes/pull/127) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update issue-manager to 0.8.1. PR [#123](https://github.com/tiangolo/latest-changes/pull/123) by [@tiangolo](https://github.com/tiangolo).
 
