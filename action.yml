@@ -9,8 +9,7 @@ inputs:
     description: Optional PR number to call this GitHub Action manually in a workflow.
     required: false
   latest_changes_file:
-    description: The file to add the latest changes.
-    default: README.md
+    description: The file to add the latest changes. By default, the action searches for release-notes.md at the repository root, in docs/, and in docs/en/docs/.
     required: false
   latest_changes_header:
     description: Header to search for in the latest changes file, this action will add the changes right after that string.

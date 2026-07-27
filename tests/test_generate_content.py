@@ -7,9 +7,97 @@ from latest_changes.main import (
     Settings,
     TemplateDataPR,
     TemplateDataUser,
+    find_latest_changes_file,
     generate_content,
     should_skip_labels,
 )
+
+
+def test_find_latest_changes_file_uses_configured_file(tmp_path):
+    configured_file = tmp_path / "custom.md"
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+        input_latest_changes_file=configured_file,
+    )
+
+    assert find_latest_changes_file(settings) == configured_file
+    assert settings.input_latest_changes_file == configured_file
+
+
+@pytest.mark.parametrize(
+    "relative_path",
+    [
+        "release-notes.md",
+        "docs/release-notes.md",
+        "docs/en/docs/release-notes.md",
+    ],
+)
+def test_find_latest_changes_file_uses_default_locations(
+    tmp_path, monkeypatch, relative_path
+):
+    latest_changes_file = tmp_path / relative_path
+    latest_changes_file.parent.mkdir(parents=True, exist_ok=True)
+    latest_changes_file.touch()
+    monkeypatch.chdir(tmp_path)
+
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+    )
+
+    assert find_latest_changes_file(settings) == latest_changes_file.relative_to(
+        tmp_path
+    )
+    assert settings.input_latest_changes_file is None
+
+
+def test_find_latest_changes_file_uses_first_match(tmp_path, monkeypatch):
+    root_file = tmp_path / "release-notes.md"
+    docs_file = tmp_path / "docs" / "release-notes.md"
+    root_file.touch()
+    docs_file.parent.mkdir()
+    docs_file.touch()
+    monkeypatch.chdir(tmp_path)
+
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+    )
+
+    assert find_latest_changes_file(settings) == root_file.relative_to(tmp_path)
+
+
+def test_find_latest_changes_file_fails_when_not_found(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+    )
+
+    with pytest.raises(
+        RuntimeError,
+        match=(
+            "No latest changes file was found. Searched for: release-notes.md, "
+            "docs/release-notes.md, docs/en/docs/release-notes.md"
+        ),
+    ):
+        find_latest_changes_file(settings)
+
+
+def test_empty_latest_changes_file_is_none(monkeypatch):
+    monkeypatch.setenv("INPUT_LATEST_CHANGES_FILE", "")
+    settings = Settings(
+        github_repository="tiangolo/latest-changes",
+        github_event_path="event.json",
+        input_token="secret",
+    )
+
+    assert settings.input_latest_changes_file is None
 
 
 def test_should_skip_labels():
