@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.repository.default_branch }}
-      - uses: tiangolo/latest-changes@0.7.0
+      - uses: tiangolo/latest-changes@0.7.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -188,7 +188,7 @@ jobs:
     - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.repository.default_branch }}
-    - uses: tiangolo/latest-changes@0.7.0
+    - uses: tiangolo/latest-changes@0.7.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         latest_changes_file: docs/release-notes.md
@@ -310,7 +310,7 @@ jobs:
         with:
           ref: ${{ github.event.repository.default_branch }}
           token: ${{ secrets.LATEST_CHANGES_TOKEN }}
-      - uses: tiangolo/latest-changes@0.7.0
+      - uses: tiangolo/latest-changes@0.7.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
