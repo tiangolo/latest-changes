@@ -2,6 +2,9 @@
 
 Automatically add the changes from each PR to the release notes in a file.
 
+> [!WARNING]
+> This GitHub Action is deprecated. Use the [Latest Changes GitHub App](https://github.com/tiangolo/latest-changes-app) instead. It is the recommended replacement and does not require a workflow or a personal access token.
+
 ## How to use
 
 Install this GitHub action by creating a file in your repo at `.github/workflows/latest-changes.yml`.
