@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.7.2 (2026-08-06)
+
 > [!WARNING]
 > This GitHub Action is deprecated. Use the [Latest Changes GitHub App](https://github.com/tiangolo/latest-changes-app) instead. It is the recommended replacement and does not require a workflow or a personal access token.
 
