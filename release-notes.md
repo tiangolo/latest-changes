@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Deprecate the GitHub Action. PR [#134](https://github.com/tiangolo/latest-changes/pull/134) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * 🔥 Remove the old Latest Changes workflow. PR [#133](https://github.com/tiangolo/latest-changes/pull/133) by [@tiangolo](https://github.com/tiangolo).
