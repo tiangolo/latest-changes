@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 🔥 Remove the old Latest Changes workflow. PR [#133](https://github.com/tiangolo/latest-changes/pull/133) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.7.1 (2026-07-27)
 
 ### Fixes
