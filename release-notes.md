@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+> [!WARNING]
+> This GitHub Action is deprecated. Use the [Latest Changes GitHub App](https://github.com/tiangolo/latest-changes-app) instead. It is the recommended replacement and does not require a workflow or a personal access token.
+
 ### Docs
 
 * 📝 Deprecate the GitHub Action. PR [#134](https://github.com/tiangolo/latest-changes/pull/134) by [@tiangolo](https://github.com/tiangolo).
