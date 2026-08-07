@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump the github-actions group across 1 directory with 4 updates. PR [#124](https://github.com/tiangolo/latest-changes/pull/124) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.7.2 (2026-08-06)
 
 > [!WARNING]
