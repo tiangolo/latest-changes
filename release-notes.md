@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.7.3 (2026-08-08)
+
 ### Internal
 
 * ✨ Use PR Submit for automated PRs. PR [#136](https://github.com/tiangolo/latest-changes/pull/136) by [@tiangolo](https://github.com/tiangolo).
