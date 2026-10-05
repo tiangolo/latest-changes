@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆️ Bump setup-uv action to 10.0.1. PR [#138](https://github.com/tiangolo/latest-changes/pull/138) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆️ Bump Typer min version to `0.26.1`. PR [#139](https://github.com/tiangolo/latest-changes/pull/139) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ✨ Use PR Submit for automated PRs. PR [#136](https://github.com/tiangolo/latest-changes/pull/136) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the github-actions group across 1 directory with 4 updates. PR [#124](https://github.com/tiangolo/latest-changes/pull/124) by [@dependabot[bot]](https://github.com/apps/dependabot).
