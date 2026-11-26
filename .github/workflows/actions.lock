@@ -5,22 +5,22 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/create-draft-release.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-python@v7.0.0'
-        - 'astral-sh/setup-uv@v10.0.1'
+        - 'actions/setup-python@v7.1.0'
+        - 'astral-sh/setup-uv@v10.4.0'
     '.github/workflows/issue-manager.yml':
         - 'tiangolo/issue-manager@0.8.1'
     '.github/workflows/prepare-release.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-python@v7.0.0'
-        - 'astral-sh/setup-uv@v10.0.1'
+        - 'actions/setup-python@v7.1.0'
+        - 'astral-sh/setup-uv@v10.4.0'
         - 'tiangolo/pr-submit@0.0.1'
     '.github/workflows/test.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-python@v7.0.0'
-        - 'actions/upload-artifact@v7.0.1'
-        - 'astral-sh/setup-uv@v10.0.1'
+        - 'actions/setup-python@v7.1.0'
+        - 'actions/upload-artifact@v7.0.2'
+        - 'astral-sh/setup-uv@v10.4.0'
         - 'mxschmitt/action-tmate@v3.24'
-        - 're-actors/alls-green@v1.2.2'
+        - 're-actors/alls-green@v1.3.0'
     '.github/workflows/zizmor.yml':
         - 'actions/checkout@v7.0.1'
         - 'zizmorcore/zizmor-action@v0.8.1'
@@ -30,19 +30,19 @@ dependencies:
         commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
         owner_id: 44036562
         repo_id: 197814629
-    'actions/setup-python@v7.0.0':
-        ref: 'v7.0.0'
-        commit: 'sha1-5fda3b95a4ea91299a34e894583c3862153e4b97'
+    'actions/setup-python@v7.1.0':
+        ref: 'v7.1.0'
+        commit: 'sha1-6d4fd22b20465ccc0f7354476588e8df7c9ca0e0'
         owner_id: 44036562
         repo_id: 192625525
-    'actions/upload-artifact@v7.0.1':
-        ref: 'v7.0.1'
-        commit: 'sha1-043fb46d1a93c77aae656e7c1c64a875d1fc6a0a'
+    'actions/upload-artifact@v7.0.2':
+        ref: 'v7.0.2'
+        commit: 'sha1-cf430e030ddbb5b0abf93d22962f4752f3646cd9'
         owner_id: 44036562
         repo_id: 192625955
-    'astral-sh/setup-uv@v10.0.1':
-        ref: 'v10.0.1'
-        commit: 'sha1-20cfd1bf945f4377ade1205e4dbc17946fc9a30d'
+    'astral-sh/setup-uv@v10.4.0':
+        ref: 'v10.4.0'
+        commit: 'sha1-1db35dd8eee11c5894872e0b383ae6c406cf738d'
         owner_id: 115962839
         repo_id: 846733598
     'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370':
@@ -55,9 +55,9 @@ dependencies:
         commit: 'sha1-35b54afac29c97fb54faba5b513f8fbd1882f113'
         owner_id: 17984549
         repo_id: 203994683
-    're-actors/alls-green@v1.2.2':
-        ref: 'v1.2.2'
-        commit: 'sha1-05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe'
+    're-actors/alls-green@v1.3.0':
+        ref: 'v1.3.0'
+        commit: 'sha1-b5b5b37504aa4183270bd3d855c52a67f212be35'
         owner_id: 46427759
         repo_id: 434447646
     'tiangolo/issue-manager@0.8.1':

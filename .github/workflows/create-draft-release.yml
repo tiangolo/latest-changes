@@ -28,11 +28,11 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
           persist-credentials: true
       - name: Set up Python
-        uses: actions/setup-python@v7.0.0
+        uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.14"
       - name: Install uv
-        uses: astral-sh/setup-uv@v10.0.1
+        uses: astral-sh/setup-uv@v10.4.0
         with:
           version: "latest-known"
           enable-cache: false
